@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SourceFile>X:/Projects/Shaders/MonoProject/ShadersTest/ShadersTest/Content/ShadersV2/LandMasses.fx</SourceFile>
+  <SourceTime>2021-03-02T22:54:04.4429965+02:00</SourceTime>
+  <DestFile>X:/Projects/Shaders/MonoProject/ShadersTest/ShadersTest/Content/bin/DesktopGL/Content/ShadersV2/LandMasses.xnb</DestFile>
+  <DestTime>2021-03-02T22:54:37.951744+02:00</DestTime>
+  <Importer>EffectImporter</Importer>
+  <ImporterTime>2018-12-08T18:35:54+02:00</ImporterTime>
+  <Processor>EffectProcessor</Processor>
+  <ProcessorTime>2018-12-08T18:35:54+02:00</ProcessorTime>
+  <Parameters>
+    <Key>DebugMode</Key>
+    <Value>Auto</Value>
+  </Parameters>
+  <Dependencies>
+    <string>X:\Projects\Shaders\MonoProject\ShadersTest\ShadersTest\Content\ShadersV2\planet_utils.fx</string>
+  </Dependencies>
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

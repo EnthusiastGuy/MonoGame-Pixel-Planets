@@ -1,0 +1,203 @@
+﻿MonoGame Pixel Planets
+======================
+Originally created by Deep-Fold, ported by Enthusiast Guy
+
+
+
+
+
+1. About
+=========
+1.1. Personal note
+------------------
+
+This project is somewhat branched off this one right here: https://github.com/Deep-Fold/PixelPlanets
+The author, Deep-Fold is the original wizard of all this, and large amounts of hails should go his way.
+Please visit his itch.io project page here: https://deep-fold.itch.io/pixel-planet-generator
+
+I'm the Enthusiast Guy, responsible for this port to Monogame. You can find me on YouTube:
+https://www.youtube.com/channel/UCs3I6aDQ6Hj7m6_9l0HBgQA
+
+I've stumbled upon this crazy cool gem just a few days before writing this. I have my own game project that
+I'm working on, and it so happened that I needed planets for some parts of my game. The original project is
+written with Godot (https://godotengine.org), however my own game project is written quite extensively in
+MonoGame. The shaders Deep-Fold wrote are in GLSL language (https://en.wikipedia.org/wiki/OpenGL_Shading_Language)
+while monogame uses HLSL (https://en.wikipedia.org/wiki/High-Level_Shading_Language). Basically think of them
+as OpenGL vs DirectX. Because Monogame's ancestor is XNA written by Microsoft for XBox360, you can see why it
+would not use OpenGL shaders.
+
+I have never worked with shaders before this, but I had hoped that this wonderful project can somehow be
+converted to the HLSL that monogame supports, and in fact, it did as this very project stands whitness
+for.
+
+Following Deep-Fold's nice guidance in this new chapter of shaders, I was able to port this, while
+honestly not fully understanding the whole math behind it. For the moment, at least.
+
+
+1.2. Further development/support
+--------------------------------
+
+I do intend to bring this one to a stable form, as accurate as possible and I'll provide moderate support if
+any bugs are reported, however, please consider that my main work is concentrated elsewhere and I may not have
+time for substantial features. Moreover, I believe this should remain a rather simple project.
+Feel free to fork it, though, and let me know what you did with it. ;)
+
+1.3. Use/LICENSE
+----------------
+
+The original author released his work under MIT license and specifically mentioned we can do anything we
+want with it, under any circumstances, while, (not obligatory) a mention of his name would be nice.
+The same conditions are valid here. So:
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+associated documentation files (the "Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the
+following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial
+portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+
+
+2. Project
+===========
+
+Important.
+This project is NOT an example in code tidyness. Please don't assume it is. I took a lot of shortcuts to get
+to the desired result, as the central piece of this is the actual shaders, not the code architecture.
+
+2.1. Structure
+--------------
+
+2.1.1. Entry point
+-----------
+The entry point of the application is the PixelPlanets.cs class. It contains the most important methods:
+
+Update() and Draw().
+
+Ideally Update should prepare everything in a state and Draw just to simply draw. I probably not respected that
+thoroughly, but make sure you do if you use MonoGame to build your game.
+
+The State.cs class contains the state of most things in this app. It also contains the persisted data that is
+saveable to state.json with F1.
+
+2.1.2. Shaders
+--------------
+You'll find the shaders in the Content/ShadersV2 directory. All the shaders drawing planets/stars use
+a common shader included in all of them at the beginning, called "planet_utils.fx". That holds the
+commom math used all over.
+Each shader has some "parameters" which means it accepts variables from the calling program and uses
+them further. Those params are not static, they look something like:
+
+float time = 0.0;
+
+This indicates that MonoGame is able to send values to them like this:
+
+shader.Parameters["time"].SetValue(yourFloatValueHere); // See Shaders.cs for that
+
+Many shaders consist of some layer methods that are used in the MainPS method.
+MainPS receives a VertexShaderInput input parameter that holds the TextureCoordinates that mean the actual XY of the current pixel
+Then, other layer methods are called with those coordinates to render gradually the land, lakes and clouds, whatever may be the
+case, and then they are returned from the MainPS once again as the final color for the respective XY pixel.
+
+2.1.3. Debugging shaders
+------------------------
+
+Arm yourself with patience.
+To compile a shader, you need to run Content.mgcb from your project/Content folder. That, should idealy launch the MonoGame
+Pipeline Tool. If, instead of that, you open a text file, then right click on Content.mgcb, select Open With and in the
+window that opens, find "MonoGame Pipeline Tool". Select it, click on Make Default and then OK.
+
+Right click on a shader in ShadersV2 and select Rebuild. That will rebuild only the selected shader. If the build output
+shows the build with green, it means it compiled correctly all code in there. If not, then you need to debug.
+
+First annoying thing (and it's partly my fault) is that because I introduced the #include, the line numbers no longer correspond
+as they should when they show you an error. They show a number higher then where the actual problem is. That is really
+annoying, but a workaround is to copy ALL methods from the "planet_utils.fx" in your working shader and get rid of the #include
+temporarely. Once you fix the problem(s) you can restore the structure.
+
+While it may be inconvenient to do this, please resist writing permanent duplicate code. Trust me, in the long term it will backfire.
+
+Keep in mind that shaders are pre-optimized by the engine. This means that if you comment a piece of code, the engine will aggresively
+go up the execution line and obliderate anything connected to the code you commented, considering that code should no longer exist.
+This includes parameters, so you CAN get an error when trying to pass a parameter not used, because it is NO LONGER exposed.
+
+While in GLSL you may declare a vec2 like this: vec2(.5), which means actually vec2(.5, .5), you can't get away with this in HLSL.
+You need to explicitly declare float2(.5, .5), otherwise you'll get an error.
+
+2.1.4. Packages
+---------------
+
+This project uses Newtonsoft json to serialize/deserialize the state data.
+
+
+
+3. Version history
+==================
+
+0.2.0.17 - march 3'rd 2021 - The very first published version. It is an alpha version, meaning not all features are yet
+connected, and some are downright missing (for now).
+
+Features:
+------------
+- GLSL to HLSL conversion of ALL pixel shaders available in the original Pixel Planets project:
+(Asteroid, GasPlanet, IceWorld, LandMasses, LandRivers, LavaWorld, NoAtmosphere, Star, TerranDry)
+- Some optimizations or refactoring of the shaders as permitted by the MonoGame architecture;
+- Canvas representation of the planets;
+
+Userinterface
+- Browse through the planets (use keys LEFT/RIGHT to show previous/next planet);
+- Randomize the parameters for the shader. This can get quite messy, still experimental. Procedural generation
+is far better, but this will be implemented later.
+- Set all parameters back to default by using the TILDE key (it's usually above TAB);
+- Increase/decrease planet resolution (use keys UP/DOWN);
+- Stop the planet from rotating (use key SPACE);
+- Move the light source around (use mouse left click and move around);
+- Arbitrarly rotate planet with mouse (use mouse right click and move around);
+- List of modifiable parameters for all shaders;
+- Left click on any parameter, hold and scroll mouse wheel to change the value. The change is instantly observed
+in the viewport;
+- While editing a parameter, you can press middle mouse button to revert that value to the default;
+- State save (use F1 to save current state to an editable state.json in the app directory). As long as the state.json
+exists in the root of the project, it will be loaded on start-up. Deleting it will force the application to generate
+a new set. Be careful when you edit it, I made no guards over bad edits and the application will most certainly crash;
+The state holds parameter values for all planets, assuming I've finished adding them;
+- Esc key exits the app;
+
+Known issues:
+-------------
+- The shader code is still messy, I'd like to clean it up a bit more;
+- The Gas giant II looks smaller than it does originally. That has been a design decision, as the original
+render of it was trimming the outer ring, while holding the planet well in focus. However, I believe that
+the priority is the complete rendering of the planet WITH the intact ring and the implemented is free to
+resize the whole thing, so given the viewportin this project is a fixed one, this is the way it's staying.
+I have, however, included an experimental Scale modifier, to allow zooming in to the planet. Will also
+have to fix the pixelated ring;
+- The Star is not fully implemented yet, given that the flares pose a similar problem as to the Gas giant II
+(see above), I'll probably implement something similar, by reducing the star size;
+- Clouds tend to dither in a weird way for some planets. Most noticeably the IceWorld, whose clouds sometimes
+get garbaled in a smaller mess of pixels with holes in them. Not sure where that comes from, probably
+another platform-dependent way of interpreting API functions. Not important for now;
+
+Planed features/work
+--------------------
+- Seed generator to populate parameters procedurally, nicer than blind random;
+- Further clean-up/refactor code;
+- Finish the star code;
+- Try and fix a bug that makes the shading of the light weird on a planet. Pixels aren't square there if you zoom;
+- Png export for:
+	- texture atlases and json sprite pointers;
+	- layered data, such as cloud rendered separately from planets;
+- Implement color params edit. Probably at first manually from the json, later in the UI somehow, if it's not
+too much work;
+- Refactoring of shaders, trying to make best use of common math across all shaders;
+- Implement separate light points for each celestial body. For some of them, the general light position does not work;

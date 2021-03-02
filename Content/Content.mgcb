@@ -1,0 +1,95 @@
+
+#----------------------------- Global Properties ----------------------------#
+
+/outputDir:bin/$(Platform)
+/intermediateDir:obj/$(Platform)
+/platform:DesktopGL
+/config:
+/profile:Reach
+/compress:False
+
+#-------------------------------- References --------------------------------#
+
+
+#---------------------------------- Content ---------------------------------#
+
+#begin Fonts/Verdana.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/Verdana.spritefont
+
+#begin Fonts/VerdanaBold.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/VerdanaBold.spritefont
+
+#begin ShadersV2/Asteroid.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:ShadersV2/Asteroid.fx
+
+#begin ShadersV2/GasPlanet.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:ShadersV2/GasPlanet.fx
+
+#begin ShadersV2/GasPlanetLayers.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:ShadersV2/GasPlanetLayers.fx
+
+#begin ShadersV2/IceWorld.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:ShadersV2/IceWorld.fx
+
+#begin ShadersV2/LandMasses.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:ShadersV2/LandMasses.fx
+
+#begin ShadersV2/LandRivers.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:ShadersV2/LandRivers.fx
+
+#begin ShadersV2/LavaWorld.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:ShadersV2/LavaWorld.fx
+
+#begin ShadersV2/NoAtmosphere.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:ShadersV2/NoAtmosphere.fx
+
+#begin ShadersV2/planet_utils.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:ShadersV2/planet_utils.fx
+
+#begin ShadersV2/Star.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:ShadersV2/Star.fx
+
+#begin ShadersV2/TerranDry.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:ShadersV2/TerranDry.fx
+
