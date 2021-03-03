@@ -30,8 +30,7 @@ as OpenGL vs DirectX. Because Monogame's ancestor is XNA written by Microsoft fo
 would not use OpenGL shaders.
 
 I have never worked with shaders before this, but I had hoped that this wonderful project can somehow be
-converted to the HLSL that monogame supports, and in fact, it did as this very project stands whitness
-for.
+converted to the HLSL that monogame supports, and in fact, it did as this very project stands whitness for.
 
 Following Deep-Fold's nice guidance in this new chapter of shaders, I was able to port this, while
 honestly not fully understanding the whole math behind it. For the moment, at least.
@@ -97,7 +96,7 @@ saveable to state.json with F1.
 --------------
 You'll find the shaders in the Content/ShadersV2 directory. All the shaders drawing planets/stars use
 a common shader included in all of them at the beginning, called "planet_utils.fx". That holds the
-commom math used all over.
+common math used all over.
 Each shader has some "parameters" which means it accepts variables from the calling program and uses
 them further. Those params are not static, they look something like:
 
@@ -116,7 +115,7 @@ case, and then they are returned from the MainPS once again as the final color f
 ------------------------
 
 Arm yourself with patience.
-To compile a shader, you need to run Content.mgcb from your project/Content folder. That, should idealy launch the MonoGame
+To compile a shader, you need to run Content.mgcb from your project/Content folder. That, should ideally launch the MonoGame
 Pipeline Tool. If, instead of that, you open a text file, then right click on Content.mgcb, select Open With and in the
 window that opens, find "MonoGame Pipeline Tool". Select it, click on Make Default and then OK.
 
@@ -126,11 +125,11 @@ shows the build with green, it means it compiled correctly all code in there. If
 First annoying thing (and it's partly my fault) is that because I introduced the #include, the line numbers no longer correspond
 as they should when they show you an error. They show a number higher then where the actual problem is. That is really
 annoying, but a workaround is to copy ALL methods from the "planet_utils.fx" in your working shader and get rid of the #include
-temporarely. Once you fix the problem(s) you can restore the structure.
+temporarily. Once you fix the problem(s) you can restore the structure.
 
 While it may be inconvenient to do this, please resist writing permanent duplicate code. Trust me, in the long term it will backfire.
 
-Keep in mind that shaders are pre-optimized by the engine. This means that if you comment a piece of code, the engine will aggresively
+Keep in mind that shaders are pre-optimized by the engine. This means that if you comment a piece of code, the engine will aggressively
 go up the execution line and obliderate anything connected to the code you commented, considering that code should no longer exist.
 This includes parameters, so you CAN get an error when trying to pass a parameter not used, because it is NO LONGER exposed.
 
@@ -165,7 +164,7 @@ is far better, but this will be implemented later.
 - Increase/decrease planet resolution (use keys UP/DOWN);
 - Stop the planet from rotating (use key SPACE);
 - Move the light source around (use mouse left click and move around);
-- Arbitrarly rotate planet with mouse (use mouse right click and move around);
+- Manually rotate planet with the mouse (use mouse right click and move around);
 - List of modifiable parameters for all shaders;
 - Left click on any parameter, hold and scroll mouse wheel to change the value. The change is instantly observed
 in the viewport;
@@ -188,7 +187,7 @@ have to fix the pixelated ring;
 - The Star is not fully implemented yet, given that the flares pose a similar problem as to the Gas giant II
 (see above), I'll probably implement something similar, by reducing the star size;
 - Clouds tend to dither in a weird way for some planets. Most noticeably the IceWorld, whose clouds sometimes
-get garbaled in a smaller mess of pixels with holes in them. Not sure where that comes from, probably
+get garbled in a smaller mess of pixels with holes in them. Not sure where that comes from, probably
 another platform-dependent way of interpreting API functions. Not important for now;
 
 Planed features/work
