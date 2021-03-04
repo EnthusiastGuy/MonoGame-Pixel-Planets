@@ -14,9 +14,14 @@ namespace ShadersTest
 
         public static void Update()
         {
-            if (CelestialEffect.Parameters["time"] != null)
+            UpdateEffect(CelestialEffect);
+        }
+
+        private static void UpdateEffect(Effect effect)
+        {
+            if (effect.Parameters["time"] != null)
             {
-                CelestialEffect.Parameters["time"].SetValue((State.Time + State.CustomTime) * State.TimeModifier);
+                effect.Parameters["time"].SetValue((State.Time + State.CustomTime) * State.TimeModifier);
             }
 
             // Check if any parameters are changed and send them to the shader if so
@@ -27,7 +32,7 @@ namespace ShadersTest
                 param.ValueChanged = false;
 
                 // If the param is not implemented, skip it
-                if (CelestialEffect.Parameters[param.Name] == null)
+                if (effect.Parameters[param.Name] == null)
                 {
                     System.Console.WriteLine(
                         string.Format("Parameter {0} is not exposed in the shader for modification. Maybe you forgot to remove the static from 'static [type] {0} ?'", param.Name)
@@ -38,13 +43,13 @@ namespace ShadersTest
 
                 if (param.ValueFloat != null)
                 {
-                    CelestialEffect.Parameters[param.Name].SetValue(param.ValueFloat.GetValueOrDefault(0));
-                } else if (param.ValueInt != null)
+                    effect.Parameters[param.Name].SetValue(param.ValueFloat.GetValueOrDefault(0));
+                }
+                else if (param.ValueInt != null)
                 {
-                    CelestialEffect.Parameters[param.Name].SetValue(param.ValueInt.GetValueOrDefault(0));
+                    effect.Parameters[param.Name].SetValue(param.ValueInt.GetValueOrDefault(0));
                 }
             }
-
         }
 
         [Obsolete("This implementation should be moved so it works from parameters.")]

@@ -1,28 +1,38 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShadersTest
+﻿namespace ShadersTest
 {
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     static class Renderer
     {
+        private static GraphicsDeviceManager graphicsDeviceManager;
         private static SpriteBatch spriteBatch;
         private static GraphicsDevice graphicsDevice;
         private static Texture2D dummyTexture;
 
         private static Texture2D point;
 
-        public static void Initialize(GraphicsDevice gd)
+        public static void Initialize()
         {
-            graphicsDevice = gd;
+            graphicsDevice = graphicsDeviceManager.GraphicsDevice;
             spriteBatch = new SpriteBatch(graphicsDevice);
             dummyTexture = new Texture2D(graphicsDevice, 1, 1);
             point = new Texture2D(graphicsDevice, 1, 1);
             point.SetData(new Color[] { Color.White });
+        }
+
+        public static void RegisterGraphicsDeviceManager(GraphicsDeviceManager gdm)
+        {
+            graphicsDeviceManager = gdm;
+        }
+
+        public static void RegisterGraphics()
+        {
+            graphicsDeviceManager.PreferredBackBufferWidth = Config.VIEWPORT_WIDTH;
+            graphicsDeviceManager.PreferredBackBufferHeight = Config.VIEWPORT_HEIGHT;
+
+            graphicsDeviceManager.IsFullScreen = false;
+            graphicsDeviceManager.ApplyChanges();
         }
 
         public static void Clear()

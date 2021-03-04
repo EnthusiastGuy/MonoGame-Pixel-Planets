@@ -1,27 +1,20 @@
 ﻿namespace ShadersTest
 {
     using Microsoft.Xna.Framework;
-    
+    using Microsoft.Xna.Framework.Graphics;
+
     public class PixelPlanets : Game
     {
-        readonly GraphicsDeviceManager graphics;
-        
         public PixelPlanets()
         {
-            // TODO move the graphics from here
-            graphics = new GraphicsDeviceManager(this)
-            {
-                PreferredBackBufferWidth = Config.VIEWPORT_WIDTH,
-                PreferredBackBufferHeight = Config.VIEWPORT_HEIGHT
-            };
-            graphics.ApplyChanges();
-            
-            GameContent.Initialize(Content);
+            Renderer.RegisterGraphicsDeviceManager(new GraphicsDeviceManager(this) { GraphicsProfile = GraphicsProfile.HiDef });
+            GameContent.RegisterContent(Content);
         }
 
         protected override void Initialize()
         {
             base.Initialize();
+            Renderer.RegisterGraphics();
             IsMouseVisible = true;
             Window.Title = string.Format("{0} - {1}", Config.APP_NAME, Config.APP_VERSION);
 
@@ -30,7 +23,7 @@
 
         protected override void LoadContent()
         {
-            Renderer.Initialize(GraphicsDevice);
+            Renderer.Initialize();
             Fonts.LoadFonts();
         }
 
