@@ -11,7 +11,14 @@ https://www.youtube.com/watch?v=wnwpnkBD6OQ
 
 1. About
 =========
-1.1. Personal note
+
+1.1. This document history
+----------------------------
+13.03.2021
+- added this history section for updates that people who read this long text before can jump straight to without re-reading;
+- updated sections: 2.1.2. Shaders; 
+
+1.2. Personal note
 ------------------
 
 This project is somewhat branched off this one right here: https://github.com/Deep-Fold/PixelPlanets
@@ -36,7 +43,7 @@ Following Deep-Fold's nice guidance in this new chapter of shaders, I was able t
 honestly not fully understanding the whole math behind it. For the moment, at least.
 
 
-1.2. Further development/support
+1.3. Further development/support
 --------------------------------
 
 I do intend to bring this one to a stable form, as accurate as possible and I'll provide moderate support if
@@ -44,7 +51,7 @@ any bugs are reported, however, please consider that my main work is concentrate
 time for substantial features. Moreover, I believe this should remain a rather simple project.
 Feel free to fork it, though, and let me know what you did with it. ;)
 
-1.3. Use/LICENSE
+1.4. Use/LICENSE
 ----------------
 
 The original author released his work under MIT license and specifically mentioned we can do anything we
@@ -81,7 +88,7 @@ to the desired result, as the central piece of this is the actual shaders, not t
 --------------
 
 2.1.1. Entry point
------------
+------------------
 The entry point of the application is the PixelPlanets.cs class. It contains the most important methods:
 
 Update() and Draw().
@@ -94,6 +101,20 @@ saveable to state.json with F1.
 
 2.1.2. Shaders
 --------------
+As of version 1.2.0.17, the whole project has been migrated from MonoGame 3.7 to 3.8. This somehow introduced a problem
+in the shaders manifesting when attempting to compile the shaders: "unable to unroll loop, loop does not appear to terminate in a timely manner"
+After a bit of investigation it seems that the solution was to change one single line in planet_utils.fx:
+from
+	#define PS_SHADERMODEL ps_4_0_level_9_1
+to
+	#define PS_SHADERMODEL ps_4_0
+
+as per the documentation available here: https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-models?redirectedfrom=MSDN
+(see the shader profiles there)
+it seems that initially I was using Shader model 2. Now, by simply changing that line, the shader model has been changed to 4.0, thus
+removing the initial issue. Clearly, devices that don't support shader model 4 can no longer run this code. Attempting to change to 3.0
+was met with: "Pixel shader must be SM 4.0 level 9.1 or higher".
+
 You'll find the shaders in the Content/ShadersV2 directory. All the shaders drawing planets/stars use
 a common shader included in all of them at the beginning, called "planet_utils.fx". That holds the
 common math used all over.
@@ -142,9 +163,16 @@ You need to explicitly declare float2(.5, .5), otherwise you'll get an error.
 This project uses Newtonsoft json to serialize/deserialize the state data.
 
 
-
 3. Version history
 ==================
+
+1.2.0.17 - march 13'th 2021
+
+- Migrated from MonoGame 3.7 to 3.8.0.1641;
+- Small refactoring.
+
+
+
 
 0.2.0.17 - march 3'rd 2021 - The very first published version. It is an alpha version, meaning not all features are yet
 connected, and some are downright missing (for now).

@@ -1,28 +1,43 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ShadersTest
+﻿namespace ShadersTest
 {
+    using Microsoft.Xna.Framework;
+    using Microsoft.Xna.Framework.Graphics;
+
     static class Renderer
     {
+        private static GraphicsDeviceManager graphicsDeviceManager;
         private static SpriteBatch spriteBatch;
         private static GraphicsDevice graphicsDevice;
         private static Texture2D dummyTexture;
 
         private static Texture2D point;
 
-        public static void Initialize(GraphicsDevice gd)
+        public static void Initialize()
         {
-            graphicsDevice = gd;
+            graphicsDevice = graphicsDeviceManager.GraphicsDevice;
             spriteBatch = new SpriteBatch(graphicsDevice);
             dummyTexture = new Texture2D(graphicsDevice, 1, 1);
             point = new Texture2D(graphicsDevice, 1, 1);
             point.SetData(new Color[] { Color.White });
+        }
+
+        public static void RegisterGraphicsDeviceManager(GraphicsDeviceManager gdm)
+        {
+            graphicsDeviceManager = gdm;
+        }
+
+        public static void RegisterGraphics()
+        {
+            graphicsDeviceManager.PreferredBackBufferWidth = Config.VIEWPORT_WIDTH;
+            graphicsDeviceManager.PreferredBackBufferHeight = Config.VIEWPORT_HEIGHT;
+
+            graphicsDeviceManager.IsFullScreen = false;
+            graphicsDeviceManager.ApplyChanges();
+        }
+
+        public static GraphicsDevice GetGraphicsDevice()
+        {
+            return graphicsDevice;
         }
 
         public static void Clear()
@@ -54,6 +69,30 @@ namespace ShadersTest
 
             spriteBatch.End();
         }
+
+        public static void DrawExportTexture() {
+            // Shader batch
+            spriteBatch.Begin(
+                SpriteSortMode.BackToFront,
+                BlendState.Additive,
+                SamplerState.PointClamp,
+                DepthStencilState.Default,
+                RasterizerState.CullNone
+                , Shaders.CelestialEffect
+                );
+
+            spriteBatch.Draw(dummyTexture,
+                new Rectangle(
+                    Config.PLANET_PADDING,
+                    Config.PLANET_PADDING,
+                    Config.PLANET_RECT_SIZE,
+                    Config.PLANET_RECT_SIZE
+                ),
+                Color.White
+            );
+
+            spriteBatch.End();
+        } 
 
         public static void DrawTitle(string text, int x, int y)
         {

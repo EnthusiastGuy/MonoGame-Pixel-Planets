@@ -7,7 +7,7 @@ namespace ShadersTest
     {
         public static ContentManager Content;
 
-        public static void Initialize(ContentManager content)
+        public static void RegisterContent(ContentManager content)
         {
             Content = content;
             Content.RootDirectory = "Content";

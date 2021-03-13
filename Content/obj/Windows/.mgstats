@@ -1,0 +1,3 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"D:/Projects/Shaders/MonoProject/MonoGame-Pixel-Planets-3.8/PixelPlanets/Content/Fonts/Verdana.spritefont","D:/Projects/Shaders/MonoProject/MonoGame-Pixel-Planets-3.8/PixelPlanets/Content/bin/Windows/Fonts/Verdana.xnb","FontDescriptionProcessor","SpriteFontContent",2070,21538,0.2401236
+"D:/Projects/Shaders/MonoProject/MonoGame-Pixel-Planets-3.8/PixelPlanets/Content/Fonts/VerdanaBold.spritefont","D:/Projects/Shaders/MonoProject/MonoGame-Pixel-Planets-3.8/PixelPlanets/Content/bin/Windows/Fonts/VerdanaBold.xnb","FontDescriptionProcessor","SpriteFontContent",2075,37922,0.031865

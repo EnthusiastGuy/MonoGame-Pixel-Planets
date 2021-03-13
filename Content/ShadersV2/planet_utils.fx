@@ -1,10 +1,10 @@
 ﻿#if OPENGL
-#define SV_POSITION POSITION
-#define VS_SHADERMODEL vs_3_0
-#define PS_SHADERMODEL ps_3_0
+	#define SV_POSITION POSITION
+	#define VS_SHADERMODEL vs_3_0
+	#define PS_SHADERMODEL ps_3_0
 #else
-#define VS_SHADERMODEL vs_4_0_level_9_1
-#define PS_SHADERMODEL ps_4_0_level_9_1
+	#define VS_SHADERMODEL vs_4_0
+	#define PS_SHADERMODEL ps_4_0
 #endif
 
 // Because the fmod available in HLSL is actually
@@ -54,6 +54,7 @@ float fbm(float size, float2 sizeModifier, float seed, int octaves, float2 coord
 	float value = 0.0;
 	float scale = 0.5;
 
+	//[unroll(50)]
 	for (int i = 0; i < octaves; i++) {
 		value = value + noise(size, sizeModifier, seed, coord) * scale;
 		coord = coord * 2.0;

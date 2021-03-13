@@ -72,6 +72,11 @@ namespace ShadersTest
             {
                 State.RestoreDefaults();
             }
+
+            if (Keyboard.IsPressed(Keys.X))
+            {
+                Export.Exporter.SaveScreenshot();
+            }
         }
 
         private static void InterpretMouseActions()

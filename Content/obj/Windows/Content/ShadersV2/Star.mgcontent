@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>D:/Projects/Shaders/MonoProject/MonoGame-Pixel-Planets-3.8/PixelPlanets/MonoGame-Pixel-Planets/Content/ShadersV2/Star.fx</SourceFile>
+  <SourceTime>2021-03-03T19:39:13.4797746+02:00</SourceTime>
+  <DestFile>D:/Projects/Shaders/MonoProject/MonoGame-Pixel-Planets-3.8/PixelPlanets/MonoGame-Pixel-Planets/Content/bin/Windows/Content/ShadersV2/Star.xnb</DestFile>
+  <DestTime>2021-03-14T00:00:06.1535719+02:00</DestTime>
+  <Importer>EffectImporter</Importer>
+  <ImporterTime>2020-08-10T16:17:54+03:00</ImporterTime>
+  <Processor>EffectProcessor</Processor>
+  <ProcessorTime>2020-08-10T16:17:54+03:00</ProcessorTime>
+  <Parameters>
+    <Key>DebugMode</Key>
+    <Value>Auto</Value>
+  </Parameters>
+  <Dependencies>
+    <string>D:\Projects\Shaders\MonoProject\MonoGame-Pixel-Planets-3.8\PixelPlanets\MonoGame-Pixel-Planets\Content\ShadersV2\planet_utils.fx</string>
+  </Dependencies>
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

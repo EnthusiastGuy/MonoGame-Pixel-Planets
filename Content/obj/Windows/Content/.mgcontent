@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Profile>Reach</Profile>
+  <Platform>Windows</Platform>
+  <Config />
+  <SourceFiles>
+    <File>D:/Projects/Shaders/MonoProject/MonoGame-Pixel-Planets-3.8/PixelPlanets/MonoGame-Pixel-Planets/Content/Fonts/Verdana.spritefont</File>
+    <File>D:/Projects/Shaders/MonoProject/MonoGame-Pixel-Planets-3.8/PixelPlanets/MonoGame-Pixel-Planets/Content/Fonts/VerdanaBold.spritefont</File>
+    <File>D:/Projects/Shaders/MonoProject/MonoGame-Pixel-Planets-3.8/PixelPlanets/MonoGame-Pixel-Planets/Content/ShadersV2/Asteroid.fx</File>
+    <File>D:/Projects/Shaders/MonoProject/MonoGame-Pixel-Planets-3.8/PixelPlanets/MonoGame-Pixel-Planets/Content/ShadersV2/GasPlanet.fx</File>
+    <File>D:/Projects/Shaders/MonoProject/MonoGame-Pixel-Planets-3.8/PixelPlanets/MonoGame-Pixel-Planets/Content/ShadersV2/GasPlanetLayers.fx</File>
+    <File>D:/Projects/Shaders/MonoProject/MonoGame-Pixel-Planets-3.8/PixelPlanets/MonoGame-Pixel-Planets/Content/ShadersV2/IceWorld.fx</File>
+    <File>D:/Projects/Shaders/MonoProject/MonoGame-Pixel-Planets-3.8/PixelPlanets/MonoGame-Pixel-Planets/Content/ShadersV2/LandMasses.fx</File>
+    <File>D:/Projects/Shaders/MonoProject/MonoGame-Pixel-Planets-3.8/PixelPlanets/MonoGame-Pixel-Planets/Content/ShadersV2/LandRivers.fx</File>
+    <File>D:/Projects/Shaders/MonoProject/MonoGame-Pixel-Planets-3.8/PixelPlanets/MonoGame-Pixel-Planets/Content/ShadersV2/LavaWorld.fx</File>
+    <File>D:/Projects/Shaders/MonoProject/MonoGame-Pixel-Planets-3.8/PixelPlanets/MonoGame-Pixel-Planets/Content/ShadersV2/NoAtmosphere.fx</File>
+    <File>D:/Projects/Shaders/MonoProject/MonoGame-Pixel-Planets-3.8/PixelPlanets/MonoGame-Pixel-Planets/Content/ShadersV2/planet_utils.fx</File>
+    <File>D:/Projects/Shaders/MonoProject/MonoGame-Pixel-Planets-3.8/PixelPlanets/MonoGame-Pixel-Planets/Content/ShadersV2/Star.fx</File>
+    <File>D:/Projects/Shaders/MonoProject/MonoGame-Pixel-Planets-3.8/PixelPlanets/MonoGame-Pixel-Planets/Content/ShadersV2/TerranDry.fx</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+  </DestFiles>
+</SourceFileCollection>
