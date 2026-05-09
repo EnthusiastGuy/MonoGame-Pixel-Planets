@@ -17,9 +17,9 @@ float2 light_origin = float2(0.3, 0.3);
 // Asteroid
 float rotation = 0.0;
 
-static float3 color1 = float3(0.639, 0.654, 0.760);
-static float3 color2 = float3(0.298, 0.407, 0.521);
-static float3 color3 = float3(0.227, 0.247, 0.368);
+float3 color1 = float3(0.639, 0.654, 0.760);
+float3 color2 = float3(0.298, 0.407, 0.521);
+float3 color3 = float3(0.227, 0.247, 0.368);
 
 float size = 5.294;
 int octaves = 2;

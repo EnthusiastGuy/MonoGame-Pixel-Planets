@@ -29,12 +29,12 @@ float light_border_1 = 0.52;
 float light_border_2 = 0.62;
 int planet_octaves = 6;
 
-static float3 col1 = float3(0.388, 0.670, 0.247);
-static float3 col2 = float3(0.231, 0.490, 0.309);
-static float3 col3 = float3(0.184, 0.341, 0.325);
-static float3 col4 = float3(0.156, 0.207, 0.250);
-static float3 river_col = float3(0.309, 0.643, 0.721);
-static float3 river_col_dark = float3(0.250, 0.286, 0.450);
+float3 col1 = float3(0.388, 0.670, 0.247);
+float3 col2 = float3(0.231, 0.490, 0.309);
+float3 col3 = float3(0.184, 0.341, 0.325);
+float3 col4 = float3(0.156, 0.207, 0.250);
+float3 river_col = float3(0.309, 0.643, 0.721);
+float3 river_col_dark = float3(0.250, 0.286, 0.450);
 
 // Clouds
 float cloud_cover = 0.47;
@@ -44,10 +44,10 @@ float cloud_curve = 1.3;
 float light_border_clouds_1 = 0.52;
 float light_border_clouds_2 = 0.62;
 
-static float3 base_color = float3(0.960, 1.000, 0.909);
-static float3 outline_color = float3(0.874, 0.878, 0.909);
-static float3 shadow_base_color = float3(0.407, 0.435, 0.6);
-static float3 shadow_outline_color = float3(0.250, 0.286, 0.450);
+float3 base_color = float3(0.960, 1.000, 0.909);
+float3 outline_color = float3(0.874, 0.878, 0.909);
+float3 shadow_base_color = float3(0.407, 0.435, 0.6);
+float3 shadow_outline_color = float3(0.250, 0.286, 0.450);
 
 float size_clouds = 7.315;
 int cloud_octaves = 2;

@@ -26,10 +26,10 @@ float inner_cloud_curve = 1.3;
 float inner_light_border_1 = 0.52;
 float inner_light_border_2 = 0.62;
 
-static float3 inner_base_color = float3(0.231, 0.125, 0.152);
-static float3 inner_outline_color = float3(0.231, 0.125, 0.152);
-static float3 inner_shadow_base = float3(0.129, 0.094, 0.105);
-static float3 inner_shadow_outline = float3(0.129, 0.094, 0.105);
+float3 inner_base_color = float3(0.231, 0.125, 0.152);
+float3 inner_outline_color = float3(0.231, 0.125, 0.152);
+float3 inner_shadow_base = float3(0.129, 0.094, 0.105);
+float3 inner_shadow_outline = float3(0.129, 0.094, 0.105);
 
 float inner_size = 9.0;
 int inner_octaves = 5;
@@ -44,10 +44,10 @@ float outer_cloud_curve = 1.3;
 float outer_light_border_1 = 0.439;
 float outer_light_border_2 = 0.746;
 
-static float3 outer_base_color = float3(0.941, 0.709, 0.254);
-static float3 outer_outline_color = float3(0.811, 0.458, 0.168);
-static float3 outer_shadow_base = float3(0.670, 0.317, 0.188);
-static float3 outer_shadow_outline = float3(0.490, 0.219, 0.2);
+float3 outer_base_color = float3(0.941, 0.709, 0.254);
+float3 outer_outline_color = float3(0.811, 0.458, 0.168);
+float3 outer_shadow_base = float3(0.670, 0.317, 0.188);
+float3 outer_shadow_outline = float3(0.490, 0.219, 0.2);
 
 float outer_size = 9.0;
 int outer_octaves = 5;

@@ -22,9 +22,9 @@ float dither_size = 2.0;	// 1 is neutral
 float light_border_1 = 0.615;
 float light_border_2 = 0.729;
 
-static float3 color1 = float3(0.639, 0.654, 0.760);
-static float3 color2 = float3(0.298, 0.407, 0.521);
-static float3 color3 = float3(0.227, 0.247, 0.368);
+float3 color1 = float3(0.639, 0.654, 0.760);
+float3 color2 = float3(0.298, 0.407, 0.521);
+float3 color3 = float3(0.227, 0.247, 0.368);
 
 float size = 8.0;
 int OCTAVES = 4;
@@ -34,8 +34,8 @@ float seed = 1.012; // expected 0 - 10
 
 float light_border_crater = 0.465;
 
-static float3 craterColor1 = float3(0.298, 0.407, 0.521);
-static float3 craterColor2 = float3(0.227, 0.247, 0.368);
+float3 craterColor1 = float3(0.298, 0.407, 0.521);
+float3 craterColor2 = float3(0.227, 0.247, 0.368);
 float sizeCraters = 5.0;
 float seedCraters = 4.517; // expected 0 - 10
 

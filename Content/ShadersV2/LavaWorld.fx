@@ -22,9 +22,9 @@ float dither_size = 2.0;	// 1 is neutral
 float light_border_1 = 0.4;
 float light_border_2 = 0.6;
 
-static float3 color1 = float3(0.560, 0.301, 0.341);
-static float3 color2 = float3(0.321, 0.200, 0.247);
-static float3 color3 = float3(0.239, 0.160, 0.211);
+float3 color1 = float3(0.560, 0.301, 0.341);
+float3 color2 = float3(0.321, 0.200, 0.247);
+float3 color3 = float3(0.239, 0.160, 0.211);
 
 float size = 10.0;
 int octaves = 3;
@@ -36,8 +36,8 @@ float seed = 1.551; // expected 0 - 10
 float craters_time_speed = 0.09;
 float craters_light_border = 0.4;
 
-static float3 cratersColor1 = float3(0.321, 0.200, 0.247);
-static float3 cratersColor2 = float3(0.239, 0.160, 0.211);
+float3 cratersColor1 = float3(0.321, 0.200, 0.247);
+float3 cratersColor2 = float3(0.239, 0.160, 0.211);
 
 float craters_size = 3.5;
 float craters_seed = 1.561; // expected 0 - 10
@@ -49,9 +49,9 @@ float lava_light_border_2 = 0.036;
 
 float lava_river_cutoff = 0.579;
 
-static float3 lava_color1 = float3(1.000, 0.537, 0.200);
-static float3 lava_color2 = float3(0.901, 0.270, 0.223);
-static float3 lava_color3 = float3(0.678, 0.184, 0.270);
+float3 lava_color1 = float3(1.000, 0.537, 0.200);
+float3 lava_color2 = float3(0.901, 0.270, 0.223);
+float3 lava_color3 = float3(0.678, 0.184, 0.270);
 
 float lava_size = 10.0;
 int lava_octaves = 4;

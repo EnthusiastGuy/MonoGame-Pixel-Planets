@@ -21,10 +21,10 @@ float size = 4.463;
 int OCTAVES = 4;
 float TILES = 1.0;
 
-static float3 star_colors0 = float3(0.960784, 1.0, 0.909804);
-static float3 star_colors1 = float3(0.466667, 0.839216, 0.756863);
-static float3 star_colors2 = float3(0.109804, 0.572549, 0.654902);
-static float3 star_colors3 = float3(0.0117647, 0.243137, 0.368627);
+float3 star_colors0 = float3(0.960784, 1.0, 0.909804);
+float3 star_colors1 = float3(0.466667, 0.839216, 0.756863);
+float3 star_colors2 = float3(0.109804, 0.572549, 0.654902);
+float3 star_colors3 = float3(0.0117647, 0.243137, 0.368627);
 
 int n_colors = 4;
 

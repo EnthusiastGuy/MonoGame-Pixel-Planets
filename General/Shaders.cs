@@ -1,4 +1,6 @@
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using ShadersTest.Persistence;
 using System;
 using System.Collections.Generic;
 
@@ -324,6 +326,32 @@ namespace ShadersTest
             State.MarkAllParametersChanged();
 
             ApplySharedUniformsEveryFrame();
+            ApplyCurrentPalette();
+        }
+
+        /// <summary>Applies the currently selected palette colors to all active effects.</summary>
+        public static void ApplyCurrentPalette()
+        {
+            Palette palette = Palettes.All[State.PaletteIndex % Palettes.All.Count];
+            List<string> passIds = State.GetPassShaderIds();
+
+            for (int i = 0; i < CelestialEffects.Count; i++)
+            {
+                Effect effect = CelestialEffects[i];
+                string passId = i < passIds.Count ? passIds[i] : passIds[passIds.Count - 1];
+
+                if (!Palettes.UniformNames.TryGetValue(passId, out string[] names))
+                    continue;
+                if (!palette.Colors.TryGetValue(passId, out Vector3[] colors))
+                    continue;
+
+                int count = Math.Min(names.Length, colors.Length);
+                for (int j = 0; j < count; j++)
+                {
+                    var p = effect.Parameters[names[j]];
+                    if (p != null) p.SetValue(colors[j]);
+                }
+            }
         }
 
         /// <summary>

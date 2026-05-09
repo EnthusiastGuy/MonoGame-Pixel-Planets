@@ -65,8 +65,9 @@ namespace ShadersTest
         public static bool ExitRequested = false;
 
         public static bool ExportViewOpen;
+        public static int PaletteIndex = 0;
 
-        public static string HelperLine1 = "LEFT/RIGHT: body  |  P: PNG  |  F2: export  |  X: full shot  |  TAB / ~ : rand / defaults";
+        public static string HelperLine1 = "LEFT/RIGHT: body  |  P: PNG  |  F2: export  |  X: full shot  |  TAB/~: rand/defaults  |  [/]: palette";
         public static string HelperLine2 = "[LightHandlingMessage]";
 
         private static PersistentData data = LoadOrInitialize();

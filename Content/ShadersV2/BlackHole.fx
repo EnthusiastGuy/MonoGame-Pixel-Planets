@@ -21,18 +21,18 @@ float disk_width = 0.065;
 float ring_perspective = 14.0;
 float should_dither = 1.0;
 
-static float3 hole_c0 = float3(0.152941, 0.152941, 0.211765);
-static float3 hole_c1 = float3(1.0, 1.0, 0.921569);
-static float3 hole_c2 = float3(0.929412, 0.482353, 0.223529);
+float3 hole_c0 = float3(0.152941, 0.152941, 0.211765);
+float3 hole_c1 = float3(1.0, 1.0, 0.921569);
+float3 hole_c2 = float3(0.929412, 0.482353, 0.223529);
 
 float hole_radius = 0.247;
 float hole_light_width = 0.028;
 
-static float3 ring_c0 = float3(1.0, 1.0, 0.921569);
-static float3 ring_c1 = float3(1.0, 0.960784, 0.25098);
-static float3 ring_c2 = float3(1.0, 0.721569, 0.290196);
-static float3 ring_c3 = float3(0.929412, 0.482353, 0.223529);
-static float3 ring_c4 = float3(0.741176, 0.25098, 0.207843);
+float3 ring_c0 = float3(1.0, 1.0, 0.921569);
+float3 ring_c1 = float3(1.0, 0.960784, 0.25098);
+float3 ring_c2 = float3(1.0, 0.721569, 0.290196);
+float3 ring_c3 = float3(0.929412, 0.482353, 0.223529);
+float3 ring_c4 = float3(0.741176, 0.25098, 0.207843);
 
 float disk_size = 6.598;
 int OCTAVES = 3;
