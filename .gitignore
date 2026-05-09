@@ -14,6 +14,7 @@ bld/
 [Ll]ogs/
 artifacts/
 publish/
+published/
 
 # Visual Studio / VS Code / Rider
 .vs/
