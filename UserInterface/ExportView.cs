@@ -12,11 +12,14 @@ namespace UserInterface
         private static int sheetRows = 8;
         private static int sheetMargin = 0;
         private static int gifFrames = 32;
-
-        private const int BaseDurationHundredths = 160; // 32 frames * 5cs base
+        /// <summary>GIF delay per frame in centiseconds (1/100 s), standard GIF timing unit.</summary>
+        private static int gifDelayCentiseconds = 5;
 
         private static readonly int ContentX = Config.PLANET_RECT_SIZE + 2 * Config.PLANET_PADDING + 20;
         private static readonly int ValueX = ContentX + 190;
+
+        private const int GifFieldsTop = 268;
+        private const int GifRowSpacing = 22;
 
         public static void HandleInput()
         {
@@ -33,8 +36,10 @@ namespace UserInterface
                     sheetRows = MathHelper.Clamp(sheetRows + step, 1, 32);
                 else if (FieldRect(2).Contains(mx, my))
                     sheetMargin = MathHelper.Clamp(sheetMargin + step, 0, 32);
-                else if (GifFieldRect.Contains(mx, my))
+                else if (GifFieldRect(0).Contains(mx, my))
                     gifFrames = MathHelper.Clamp(gifFrames + step * 8, 8, 512);
+                else if (GifFieldRect(1).Contains(mx, my))
+                    gifDelayCentiseconds = MathHelper.Clamp(gifDelayCentiseconds + step, 1, 255);
             }
 
             if (MouseStates.MouseLeftClickReleased())
@@ -42,10 +47,7 @@ namespace UserInterface
                 if (SheetBtnRect.Contains(mx, my))
                     Exporter.SaveSpriteSheetWithDialog(sheetColumns, sheetRows, sheetMargin);
                 else if (GifBtnRect.Contains(mx, my))
-                {
-                    int delay = Math.Max(2, (int)Math.Round((double)BaseDurationHundredths / gifFrames));
-                    Exporter.SaveGifWithDialog(gifFrames, delay);
-                }
+                    Exporter.SaveGifWithDialog(gifFrames, gifDelayCentiseconds);
                 else if (CancelBtnRect.Contains(mx, my))
                     State.ExportViewOpen = false;
             }
@@ -79,8 +81,13 @@ namespace UserInterface
             Renderer.DrawBoldOrange("Gif", ContentX, 230);
             Renderer.DrawEmptyColorRectangle(ContentX, 250, 300, 1, Color.DimGray);
 
-            DrawGifField("Frames", gifFrames.ToString(), mx, my);
-            Renderer.DrawSimple("More frames = smoother, same loop duration", ContentX, 296, Color.Gray);
+            DrawGifRow("Frames", gifFrames.ToString(), 0, mx, my);
+            DrawGifRow("Frame delay (cs)", gifDelayCentiseconds.ToString(), 1, mx, my);
+            Renderer.DrawSimple(
+                "cs = centiseconds (1/100 s) per frame - wheel over a row to edit",
+                ContentX,
+                GifFieldsTop + 2 * GifRowSpacing + 6,
+                Color.Gray);
 
             DrawButton("Export gif", GifBtnRect, mx, my);
 
@@ -95,14 +102,14 @@ namespace UserInterface
         private static Rectangle FieldRect(int index) =>
             new Rectangle(ContentX - 2, FieldY(index), 300, 20);
 
-        private static Rectangle GifFieldRect =>
-            new Rectangle(ContentX - 2, 268, 300, 20);
+        private static Rectangle GifFieldRect(int row) =>
+            new Rectangle(ContentX - 2, GifFieldsTop + row * GifRowSpacing, 300, 20);
 
         private static Rectangle SheetBtnRect =>
             new Rectangle(ContentX, 186, 220, 24);
 
         private static Rectangle GifBtnRect =>
-            new Rectangle(ContentX, 324, 220, 24);
+            new Rectangle(ContentX, 336, 220, 24);
 
         private static Rectangle CancelBtnRect =>
             new Rectangle(Config.VIEWPORT_WIDTH - 120, Config.VIEWPORT_HEIGHT - 40, 100, 24);
@@ -119,13 +126,14 @@ namespace UserInterface
                 Renderer.DrawLShapedSelection(ContentX - 2, y, 300, 18, Color.DarkOrange);
         }
 
-        private static void DrawGifField(string label, string value, int mx, int my)
+        private static void DrawGifRow(string label, string value, int row, int mx, int my)
         {
-            bool hovered = GifFieldRect.Contains(mx, my);
-            Renderer.DrawSimple(label, ContentX, 268, hovered ? Color.Orange : Color.DarkOrange);
-            Renderer.DrawSimple(value, ValueX, 268, hovered ? Color.Cyan : Color.GreenYellow);
+            int y = GifFieldsTop + row * GifRowSpacing;
+            bool hovered = GifFieldRect(row).Contains(mx, my);
+            Renderer.DrawSimple(label, ContentX, y, hovered ? Color.Orange : Color.DarkOrange);
+            Renderer.DrawSimple(value, ValueX, y, hovered ? Color.Cyan : Color.GreenYellow);
             if (hovered)
-                Renderer.DrawLShapedSelection(ContentX - 2, 268, 300, 18, Color.DarkOrange);
+                Renderer.DrawLShapedSelection(ContentX - 2, y, 300, 18, Color.DarkOrange);
         }
 
         private static void DrawButton(string text, Rectangle rect, int mx, int my)
