@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace ShadersTest
@@ -17,17 +18,17 @@ namespace ShadersTest
         protected override void Initialize()
         {
             base.Initialize();
+            State.ApproxUpdatesPerSecond = (float)Math.Max(1.0, 1.0 / TargetElapsedTime.TotalSeconds);
             Renderer.RegisterGraphics();
             IsMouseVisible = true;
             Window.Title = string.Format("{0} - {1}", Config.APP_NAME, Config.APP_VERSION);
-
-            Shaders.UpdateShader();
         }
 
         protected override void LoadContent()
         {
             Renderer.Initialize();
             Fonts.LoadFonts();
+            Shaders.UpdateShader();
         }
 
         protected override void UnloadContent()

@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
 
@@ -76,6 +76,21 @@ namespace ShadersTest
             if (Keyboard.IsPressed(Keys.X))
             {
                 Export.Exporter.SaveScreenshot();
+            }
+
+            if (Keyboard.KeyIsReleased(Keys.P))
+            {
+                Export.Exporter.SavePlanetPngWithDialog();
+            }
+
+            if (Keyboard.KeyIsReleased(Keys.F2))
+            {
+                Export.Exporter.SaveSpriteSheetWithDialog();
+            }
+
+            if (Keyboard.KeyIsReleased(Keys.F3))
+            {
+                Export.Exporter.SaveGifWithDialog();
             }
         }
 

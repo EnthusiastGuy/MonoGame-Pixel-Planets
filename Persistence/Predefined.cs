@@ -1,4 +1,4 @@
-﻿namespace ShadersTest.Persistence
+namespace ShadersTest.Persistence
 {
     using Microsoft.Xna.Framework;
     using System.Collections.Generic;
@@ -11,17 +11,10 @@
             {
                 new Celestial()
                 {
-                    Name = "Land Rivers",
+                    Name = "Terran Wet",
                     ShaderID = "LandRivers",
                     Info = "A terran like planet with land, rivers and clouds.",
                     Parameters = GetLandRiversParams(),
-                },
-                new Celestial()
-                {
-                    Name = "Ice World",
-                    ShaderID = "IceWorld",
-                    Info = "Ice planet, with some water lakes, wind and clouds.",
-                    Parameters = GetIceWorldParams(),
                 },
                 new Celestial()
                 {
@@ -46,17 +39,24 @@
                 },
                 new Celestial()
                 {
-                    Name = "Gas Giant I",
+                    Name = "Gas giant 1",
                     ShaderID = "GasPlanet",
                     Info = "A cold planet, outside the frost line.",
                     Parameters = GetGasPlanetParams(),
                 },
                 new Celestial()
                 {
-                    Name = "Gas Giant II",
+                    Name = "Gas giant 2",
                     ShaderID = "GasPlanetLayers",
-                    Info = "A cold planet, outside the frost line, variation.",
+                    Info = "A cold planet, outside the frost line, with prominent rings.",
                     Parameters = GetGasPlanetLayersParams(),
+                },
+                new Celestial()
+                {
+                    Name = "Ice World",
+                    ShaderID = "IceWorld",
+                    Info = "Ice planet, with some water lakes, wind and clouds.",
+                    Parameters = GetIceWorldParams(),
                 },
                 new Celestial()
                 {
@@ -74,11 +74,64 @@
                 },
                 new Celestial()
                 {
+                    Name = "Black Hole",
+                    ShaderID = "BlackHole",
+                    Info = "Event horizon and accretion disk.",
+                    Parameters = GetBlackHoleParams(),
+                },
+                new Celestial()
+                {
+                    Name = "Galaxy",
+                    ShaderID = "Galaxy",
+                    Info = "Swirling stellar assembly.",
+                    Parameters = GetGalaxyParams(),
+                },
+                new Celestial()
+                {
                     Name = "Star",
                     ShaderID = "Star",
-                    Info = "Huge hydrogen converters.",
+                    PassShaderIds = new List<string> { "StarBlobs", "Star", "StarFlares" },
+                    Info = "Huge hydrogen converters (multi-layer: blobs, surface, flares).",
                     Parameters = GetStarParams(),
                 }
+            };
+        }
+
+        public static List<Parameter> GetGalaxyParams()
+        {
+            return new List<Parameter>()
+            {
+                Parameter.New("Rotation", "rotation", 0.674f, 0.674f, 0.0f, 6.283f),
+                Parameter.New("Time speed", "time_speed", 1.0f, 1.0f, 0.0f, 1.0f),
+                Parameter.New("Dither size", "dither_size", 2.0f, 2.0f, 0.0f, 10.0f),
+                Parameter.New("Should dither", "should_dither", 1.0f, 1.0f, 0.0f, 1.0f),
+                Parameter.New("Noise size", "size", 7.0f, 7.0f, 1.0f, 50.0f),
+                Parameter.New("Noise octaves", "OCTAVES", 1, 1, 0, 20),
+                Parameter.New("Seed", "seed", 5.881f, 5.881f, 0.0f, 10.0f),
+                Parameter.New("Tilt", "tilt", 3.0f, 3.0f, 0.5f, 8.0f),
+                Parameter.New("Layer bands", "n_layers", 4.0f, 4.0f, 1.0f, 12.0f),
+                Parameter.New("Layer height", "layer_height", 0.4f, 0.4f, 0.0f, 1.0f),
+                Parameter.New("Zoom", "zoom", 1.375f, 1.375f, 0.5f, 4.0f),
+                Parameter.New("Swirl", "swirl", -9.0f, -9.0f, -30.0f, 30.0f),
+                Parameter.New("Color steps", "n_colors", 6, 6, 2, 12),
+            };
+        }
+
+        public static List<Parameter> GetBlackHoleParams()
+        {
+            return new List<Parameter>()
+            {
+                Parameter.New("Disk rotation", "rotation", 0.766f, 0.766f, 0.0f, 6.283f),
+                Parameter.New("Time speed", "time_speed", 0.2f, 0.2f, -1.0f, 1.0f),
+                Parameter.New("Disk width", "disk_width", 0.065f, 0.065f, 0.0f, 0.15f),
+                Parameter.New("Ring perspective", "ring_perspective", 14.0f, 14.0f, 1.0f, 30.0f),
+                Parameter.New("Should dither", "should_dither", 1.0f, 1.0f, 0.0f, 1.0f),
+                Parameter.New("Hole radius", "hole_radius", 0.247f, 0.247f, 0.0f, 0.5f),
+                Parameter.New("Hole ring width", "hole_light_width", 0.028f, 0.028f, 0.0f, 0.5f),
+                Parameter.New("Disk noise size", "disk_size", 6.598f, 6.598f, 1.0f, 50.0f),
+                Parameter.New("Disk octaves", "OCTAVES", 3, 3, 0, 20),
+                Parameter.New("Seed", "seed", 8.175f, 8.175f, 0.0f, 10.0f),
+                Parameter.New("Ring color bands", "n_colors", 5, 5, 2, 8),
             };
         }
 
@@ -328,9 +381,8 @@
             return new List<Parameter>()
                 {
                     Parameter.New("Rotation", "rotation", 0.0f, 0.0f, 0.0f, 360.0f),
-                    Parameter.New("Time speed", "star_time_speed", 0.05f, 0.05f, -2.0f, 3.0f),
-                    Parameter.New("Size", "star_size", 10.0f, 10.0f, 1.0f, 50.0f),
-                    Parameter.New("Tiles", "star_tiles", 1.0f, 1.0f, 0.0f, 20.0f),
+                    Parameter.New("Seed", "seed", 5.0f, 5.0f, 0.0f, 10.0f),
+                    Parameter.New("Surface dither", "should_dither", 1.0f, 1.0f, 0.0f, 1.0f),
                 };
         }
     }

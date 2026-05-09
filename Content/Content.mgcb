@@ -93,3 +93,27 @@
 /processorParam:DebugMode=Auto
 /build:ShadersV2/TerranDry.fx
 
+#begin ShadersV2/Galaxy.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:ShadersV2/Galaxy.fx
+
+#begin ShadersV2/BlackHole.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:ShadersV2/BlackHole.fx
+
+#begin ShadersV2/StarBlobs.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:ShadersV2/StarBlobs.fx
+
+#begin ShadersV2/StarFlares.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:ShadersV2/StarFlares.fx
+

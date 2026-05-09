@@ -1,5 +1,7 @@
-﻿namespace ShadersTest
+namespace ShadersTest
 {
+    using System;
+    using System.IO;
     using Microsoft.Xna.Framework;
     using Microsoft.Xna.Framework.Graphics;
 
@@ -42,57 +44,110 @@
 
         public static void Clear()
         {
-            graphicsDevice.Clear(Color.Transparent);
+            graphicsDevice.Clear(Color.Black);
+        }
+
+        /// <summary>
+        /// Renders shader passes. The original port uses <see cref="BlendState.Additive"/> — planet shaders are tuned for it.
+        /// Using <see cref="BlendState.AlphaBlend"/> on the backbuffer tends to produce a flat white/wrong tint behind the sphere.
+        /// </summary>
+        public static void DrawPlanetPasses(Rectangle planetRect)
+        {
+            DrawPlanetPasses(planetRect, BlendState.Additive);
+        }
+
+        /// <summary>Same as <see cref="DrawPlanetPasses(Rectangle)"/> but chooses blend mode (e.g. alpha for RT export).</summary>
+        public static void DrawPlanetPasses(Rectangle planetRect, BlendState blendState)
+        {
+            foreach (Effect fx in Shaders.CelestialEffects)
+            {
+                spriteBatch.Begin(
+                    SpriteSortMode.Deferred,
+                    blendState,
+                    SamplerState.PointClamp,
+                    DepthStencilState.Default,
+                    RasterizerState.CullNone,
+                    fx
+                );
+
+                spriteBatch.Draw(dummyTexture, planetRect, Color.White);
+
+                spriteBatch.End();
+            }
         }
 
         public static void DrawShader()
         {
-            // Shader batch
-            spriteBatch.Begin(
-                SpriteSortMode.BackToFront,
-                BlendState.Additive,
-                SamplerState.PointClamp,
-                DepthStencilState.Default,
-                RasterizerState.CullNone
-                , Shaders.CelestialEffect
-                );
-
-            spriteBatch.Draw(dummyTexture,
-                new Rectangle(
-                    Config.PLANET_PADDING,
-                    Config.PLANET_PADDING,
-                    Config.PLANET_RECT_SIZE,
-                    Config.PLANET_RECT_SIZE
-                ),
-                Color.White
-            );
-
-            spriteBatch.End();
+            DrawPlanetPasses(new Rectangle(
+                Config.PLANET_PADDING,
+                Config.PLANET_PADDING,
+                Config.PLANET_RECT_SIZE,
+                Config.PLANET_RECT_SIZE
+            ));
         }
 
-        public static void DrawExportTexture() {
-            // Shader batch
-            spriteBatch.Begin(
-                SpriteSortMode.BackToFront,
-                BlendState.Additive,
-                SamplerState.PointClamp,
-                DepthStencilState.Default,
-                RasterizerState.CullNone
-                , Shaders.CelestialEffect
-                );
+        /// <summary>Saves only the procedural planet (no UI chrome). Outside the sphere is transparent.</summary>
+        public static void CapturePlanetToPng(string path)
+        {
+            using (RenderTarget2D rt = new RenderTarget2D(
+                graphicsDevice,
+                Config.PLANET_RECT_SIZE,
+                Config.PLANET_RECT_SIZE,
+                false,
+                SurfaceFormat.Color,
+                DepthFormat.None))
+            {
+                graphicsDevice.SetRenderTarget(rt);
+                graphicsDevice.Clear(Color.Transparent);
+                DrawPlanetPasses(new Rectangle(0, 0, Config.PLANET_RECT_SIZE, Config.PLANET_RECT_SIZE), BlendState.AlphaBlend);
+                graphicsDevice.SetRenderTarget(null);
 
-            spriteBatch.Draw(dummyTexture,
-                new Rectangle(
-                    Config.PLANET_PADDING,
-                    Config.PLANET_PADDING,
-                    Config.PLANET_RECT_SIZE,
-                    Config.PLANET_RECT_SIZE
-                ),
-                Color.White
-            );
+                using (Stream fs = File.Create(path))
+                    rt.SaveAsPng(fs, rt.Width, rt.Height);
+            }
+        }
 
-            spriteBatch.End();
-        } 
+        /// <summary>Renders the current celestial into a buffer (row-major). Optionally clears with transparency for correct PNG/GIF alpha.</summary>
+        public static void CapturePlanetPixels(Color[] buffer, bool transparentBackground)
+        {
+            int w = Config.PLANET_RECT_SIZE;
+            int h = Config.PLANET_RECT_SIZE;
+            if (buffer.Length < w * h)
+                throw new ArgumentException("Buffer too small for planet capture.");
+
+            using (RenderTarget2D rt = new RenderTarget2D(
+                graphicsDevice,
+                w,
+                h,
+                false,
+                SurfaceFormat.Color,
+                DepthFormat.None))
+            {
+                graphicsDevice.SetRenderTarget(rt);
+                graphicsDevice.Clear(transparentBackground ? Color.Transparent : Color.Black);
+                DrawPlanetPasses(
+                    new Rectangle(0, 0, w, h),
+                    transparentBackground ? BlendState.AlphaBlend : BlendState.Additive);
+                graphicsDevice.SetRenderTarget(null);
+
+                rt.GetData(buffer);
+            }
+
+            if (transparentBackground)
+            {
+                for (int i = 0; i < buffer.Length; i++)
+                {
+                    Color c = buffer[i];
+                    if (c.A == 0)
+                        buffer[i] = Color.Transparent;
+                }
+            }
+        }
+
+        public static void DrawExportTexture()
+        {
+            DrawShader();
+        }
 
         public static void DrawTitle(string text, int x, int y)
         {

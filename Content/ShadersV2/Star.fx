@@ -1,4 +1,4 @@
-﻿#if OPENGL
+#if OPENGL
 	#define SV_POSITION POSITION
 	#define VS_SHADERMODEL vs_3_0
 	#define PS_SHADERMODEL ps_3_0
@@ -10,36 +10,23 @@
 #include "planet_utils.fx"
 
 float time = 0.0;
-float pixels = 200;
-float2 light_origin = float2(0.3, 0.3);
+float pixels = 100.0;
 
+float time_speed = 0.05;
 float rotation = 0.0;
+float should_dither = 1.0;
 
-// Star body
-float star_time_speed = 0.05;
+float seed = 4.837;
+float size = 4.463;
+int OCTAVES = 4;
+float TILES = 1.0;
 
-float3 star_color = float3(1, 0.545, 0.105);
+static float3 star_colors0 = float3(0.960784, 1.0, 0.909804);
+static float3 star_colors1 = float3(0.466667, 0.839216, 0.756863);
+static float3 star_colors2 = float3(0.109804, 0.572549, 0.654902);
+static float3 star_colors3 = float3(0.0117647, 0.243137, 0.368627);
 
-float star_size = 10.0;
-float star_tiles = 1.0;
-
-static float3 starColors[15] = {
-	float3(0.847, 0.941, 0.917),
-	float3(0.752, 0.862, 0.854),
-	float3(0.662, 0.784, 0.796),
-	float3(0.568, 0.709, 0.733),
-	float3(0.474, 0.631, 0.674),
-	float3(0.384, 0.552, 0.611),
-	float3(0.290, 0.474, 0.552),
-	float3(0.196, 0.4, 0.490),
-	float3(0.105, 0.321, 0.431),
-	float3(0.011, 0.243, 0.368),
-	float3(0.0, 1.0, 1.0),				// control colors from here on. To watch for overflows
-	float3(0.0, 0.8, 0.8),
-	float3(0.0, 0.6, 0.6),
-	float3(0.0, 0.4, 0.4),
-	float3(0.0, 0.2, 0.2)
-};
+int n_colors = 4;
 
 struct VertexShaderInput
 {
@@ -48,57 +35,49 @@ struct VertexShaderInput
 	float2 TextureCoordinates: TEXCOORD0;
 };
 
-// TODO, resolve the magic in here
-float3 colorSelection(float3 colors[15], float posterized) {
-	int pos = floor(posterized * 9.5);
-	return colors[pos];
-};
+float3 pick_star_body_color(int idx) {
+	if (idx == 0) return star_colors0;
+	if (idx == 1) return star_colors1;
+	if (idx == 2) return star_colors2;
+	return star_colors3;
+}
 
-// Layers
 float4 computeStarBody(float2 inputUV) {
-	// pixelize uv
-	float2 uv = floor(inputUV * pixels) / pixels;
+	float2 pixelized = floor(inputUV * pixels) / pixels;
 
-	// TODO check why UV's places are inverted here as opposed to other shaders
-	bool dith = dither(pixels, 1.0, inputUV, uv);
+	float a = step(distance(pixelized, float2(0.5, 0.5)), 0.49999);
 
-	uv = rotate(uv, rotation);
+	bool dith = dither(pixels, 1.0, pixelized, inputUV);
 
-	// map to sphere
+	float2 uv = rotate(pixelized, rotation);
 	uv = spherify(uv);
 
-	// use two different sized cells for some variation
-	float n = cells(star_size, float2(1.0, 1.0), star_size, star_tiles, time * star_time_speed, uv - float2(time * star_time_speed * 2.0, 0), 10);
-	n *= cells(star_size, float2(1.0, 1.0), star_size, star_tiles, time * star_time_speed, uv - float2(time * star_time_speed * 2.0, 0), 20);
+	float n = cells(size, float2(1.0, 1.0), seed, TILES, time * time_speed, uv - float2(time * time_speed * 2.0, 0.0), 10.0);
+	n *= cells(size, float2(1.0, 1.0), seed, TILES, time * time_speed, uv - float2(time * time_speed * 1.0, 0.0), 20.0);
 
-	// adjust cell value to get better looking stuff
-	n *= 2.;
+	n *= 2.0;
 	n = clamp(n, 0.0, 1.0);
-	if (dith) { // here we dither
+	if (dith || should_dither < 0.5) {
 		n *= 1.3;
 	}
 
-	// constrain values 4 possibilities and then choose color based on those
-	float interpolate = floor(n * 3.0) / 3.0;
-	float3 col = colorSelection(starColors, interpolate);
+	float fi = floor(n * (float)(n_colors - 1));
+	int idx = (int)fi;
+	idx = clamp(idx, 0, n_colors - 1);
 
-	// cut out a circle
-	float a = step(distance(uv, float2(0.5, 0.5)), 0.5);
-	
-	return float4(col, a);
+	float3 col = pick_star_body_color(idx);
+
+	return float4(col.rgb, a * 1.0);
 }
 
-// Fragment composition here
 float4 MainPS(VertexShaderInput input) : COLOR
 {
-	float2 inputUV = input.TextureCoordinates;
-	float4 starBody = computeStarBody(inputUV);
-	return starBody;
-};
+	return computeStarBody(input.TextureCoordinates);
+}
 
 technique SpriteDrawing {
 	pass P0
 	{
 		PixelShader = compile PS_SHADERMODEL MainPS();
 	}
-};
+}
