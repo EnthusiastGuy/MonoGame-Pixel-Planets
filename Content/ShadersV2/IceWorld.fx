@@ -10,6 +10,7 @@
 #include "planet_utils.fx"
 
 float time = 0.0;
+float time_clouds = 0.0;
 float pixels = 200;
 float2 light_origin = float2(0.3, 0.3);
 
@@ -156,7 +157,7 @@ float4 computeClouds(float2 inputUV) {
 	// slightly make uv go down on the right, and up in the left
 	uv.y += smoothstep(0.0, cloud_curve, abs(uv.x - 0.4));
 
-	float c = cloud_alpha(sizeClouds, float2(1.0, 1.0), seedClouds, time, time_speed_clouds, OCTAVES_CLOUDS, uv * float2(1.0, stretch));
+	float c = cloud_alpha(sizeClouds, float2(1.0, 1.0), seedClouds, time_clouds, time_speed_clouds, OCTAVES_CLOUDS, uv * float2(1.0, stretch));
 
 	// assign some colors based on cloud depth & distance from light
 	float3 col = base_color;

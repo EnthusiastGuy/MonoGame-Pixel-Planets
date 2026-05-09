@@ -42,7 +42,11 @@ namespace ShadersTest
                 if (gifGodot)
                     ApplyGodotGifTime(passId, effect);
                 else if (effect.Parameters["time"] != null)
-                    effect.Parameters["time"].SetValue(ComputeShaderTime(passId, baseTime, effect));
+                {
+                    float t = ComputeShaderTime(passId, baseTime, effect);
+                    effect.Parameters["time"].SetValue(t);
+                    SetSecondaryTimes(effect, t);
+                }
             }
         }
 
@@ -65,6 +69,103 @@ namespace ShadersTest
 
             if (effect.Parameters["time"] != null)
                 effect.Parameters["time"].SetValue(ComputeGodotGifShaderTime(passShaderId, t, effect));
+
+            SetGodotGifLayerTimes(passShaderId, t, effect);
+        }
+
+        /// <summary>All secondary per-layer time uniform names used across shaders.</summary>
+        private static readonly string[] SecondaryTimeUniforms =
+        {
+            "time_clouds", "time_land", "time_craters", "time_lava", "time_outer", "time_ring"
+        };
+
+        /// <summary>During live play, set every secondary time uniform to the same value as the primary <c>time</c>.</summary>
+        private static void SetSecondaryTimes(Effect effect, float value)
+        {
+            foreach (string name in SecondaryTimeUniforms)
+            {
+                var p = effect.Parameters[name];
+                if (p != null) p.SetValue(value);
+            }
+        }
+
+        private static void SetIfPresent(Effect fx, string name, float value)
+        {
+            var p = fx.Parameters[name];
+            if (p != null) p.SetValue(value);
+        }
+
+        /// <summary>
+        /// During Godot-style export, set each secondary layer's time uniform to its own
+        /// <c>t * get_multiplier(layer_material)</c> so every layer loops independently at <c>t = 1</c>.
+        /// Matches each planet's <c>set_custom_time(t)</c> in Godot.
+        /// </summary>
+        private static void SetGodotGifLayerTimes(string passShaderId, float t, Effect fx)
+        {
+            switch (passShaderId)
+            {
+                case "LandRivers":
+                    // Rivers.gd: Cloud uses get_multiplier * 0.5
+                    SetIfPresent(fx, "time_clouds",
+                        t * GodotStyleMultiplier(
+                            GetEffectSingle(fx, "size_clouds", 7.315f),
+                            GetEffectSingle(fx, "time_speed_clouds", 0.1f)) * 0.5f);
+                    break;
+
+                case "LandMasses":
+                    // LandMasses.gd: all layers use full get_multiplier
+                    SetIfPresent(fx, "time_land",
+                        t * GodotStyleMultiplier(
+                            GetEffectSingle(fx, "sizeLakes", 4.292f),
+                            GetEffectSingle(fx, "land_time_speed", 0.2f)));
+                    SetIfPresent(fx, "time_clouds",
+                        t * GodotStyleMultiplier(
+                            GetEffectSingle(fx, "sizeClouds", 7.745f),
+                            GetEffectSingle(fx, "time_speed_clouds", 0.2f)));
+                    break;
+
+                case "IceWorld":
+                    // IceWorld.gd: all layers use full get_multiplier
+                    SetIfPresent(fx, "time_clouds",
+                        t * GodotStyleMultiplier(
+                            GetEffectSingle(fx, "sizeClouds", 4f),
+                            GetEffectSingle(fx, "time_speed_clouds", 0.1f)));
+                    break;
+
+                case "LavaWorld":
+                    // LavaWorld.gd: all layers use full get_multiplier
+                    SetIfPresent(fx, "time_craters",
+                        t * GodotStyleMultiplier(
+                            GetEffectSingle(fx, "craters_size", 3.5f),
+                            GetEffectSingle(fx, "craters_time_speed", 0.09f)));
+                    SetIfPresent(fx, "time_lava",
+                        t * GodotStyleMultiplier(
+                            GetEffectSingle(fx, "lava_size", 10f),
+                            GetEffectSingle(fx, "lava_time_speed", 0.2f)));
+                    break;
+
+                case "NoAtmosphere":
+                    // NoAtmosphere.gd: both layers use full get_multiplier
+                    SetIfPresent(fx, "time_craters",
+                        t * GodotStyleMultiplier(
+                            GetEffectSingle(fx, "sizeCraters", 5f),
+                            GetEffectSingle(fx, "time_speed", 0.4f)));
+                    break;
+
+                case "GasPlanet":
+                    // GasPlanet.gd: both layers use full get_multiplier
+                    SetIfPresent(fx, "time_outer",
+                        t * GodotStyleMultiplier(
+                            GetEffectSingle(fx, "outer_size", 9f),
+                            GetEffectSingle(fx, "outer_cloud_time_speed", 0.7f)));
+                    break;
+
+                case "GasPlanetLayers":
+                    // GasPlanetLayers.gd: Ring.time = t * 314.15 * time_speed * 0.5
+                    SetIfPresent(fx, "time_ring",
+                        t * 314.15f * GetEffectSingle(fx, "ring_time_speed", 0.2f) * 0.5f);
+                    break;
+            }
         }
 
         /// <summary>Godot <c>get_multiplier</c>: <c>(round(size)*2)/time_speed</c>.</summary>
@@ -91,9 +192,10 @@ namespace ShadersTest
                         GetEffectSingle(fx, "planet_size", 4.6f),
                         GetEffectSingle(fx, "planet_time_speed", 0.2f));
                 case "LandMasses":
+                    // Primary layer is Water, which uses size + time_speed
                     return t * GodotStyleMultiplier(
-                        GetEffectSingle(fx, "sizeLakes", 4.292f),
-                        GetEffectSingle(fx, "land_time_speed", 0.2f));
+                        GetEffectSingle(fx, "size", 5.228f),
+                        GetEffectSingle(fx, "time_speed", 0.1f));
                 case "GasPlanetLayers":
                     return t * GodotStyleMultiplier(
                         GetEffectSingle(fx, "gas_size", 8f),

@@ -10,6 +10,7 @@
 #include "planet_utils.fx"
 
 float time = 0.0;
+float time_craters = 0.0;
 float pixels = 200;
 float2 light_origin = float2(0.3, 0.3);
 float rotation = 0.0;
@@ -99,8 +100,8 @@ float4 computeCraters(float2 inputUV) {
 	// map to sphere
 	uv = spherify(uv);
 
-	float c1 = crater(sizeCraters, float2(1.0, 1.0), seedCraters, time, time_speed, uv);
-	float c2 = crater(sizeCraters, float2(1.0, 1.0), seedCraters, time, time_speed, uv + (light_origin - 0.5) * 0.03);
+	float c1 = crater(sizeCraters, float2(1.0, 1.0), seedCraters, time_craters, time_speed, uv);
+	float c2 = crater(sizeCraters, float2(1.0, 1.0), seedCraters, time_craters, time_speed, uv + (light_origin - 0.5) * 0.03);
 
 	float3 col = craterColor1;
 	float a = step(0.5, c1);

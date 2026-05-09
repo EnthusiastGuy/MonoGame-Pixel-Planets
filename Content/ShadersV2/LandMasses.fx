@@ -10,6 +10,8 @@
 #include "planet_utils.fx"
 
 float time = 0.0;
+float time_land = 0.0;
+float time_clouds = 0.0;
 float pixels = 200;
 float2 light_origin = float2(0.3, 0.3);
 
@@ -131,7 +133,7 @@ float4 computeLand(float2 inputUV) {
 
 	// some scrolling noise for landmasses
 	// some scrolling noise for landmasses
-	float2 base_fbm_uv = (uv)*size + float2(time * land_time_speed, 0.0);
+	float2 base_fbm_uv = (uv)*size + float2(time_land * land_time_speed, 0.0);
 
 	float fbm1 = fbm(sizeLakes, float2(2.0, 1.0), land_seed, land_octaves, base_fbm_uv);
 	float fbm2 = fbm(sizeLakes, float2(2.0, 1.0), land_seed, land_octaves, base_fbm_uv - light_origin * fbm1);
@@ -192,7 +194,7 @@ float4 computeClouds(float2 inputUV) {
 	// slightly make uv go down on the right, and up in the left
 	uv.y += smoothstep(0.0, cloud_curve, abs(uv.x - 0.4));
 
-	float c = cloud_alpha(sizeClouds, float2(1.0, 1.0), seedClouds, time, time_speed_clouds, OCTAVES_CLOUDS, uv * float2(1.0, stretch));
+	float c = cloud_alpha(sizeClouds, float2(1.0, 1.0), seedClouds, time_clouds, time_speed_clouds, OCTAVES_CLOUDS, uv * float2(1.0, stretch));
 
 	// assign some colors based on cloud depth & distance from light
 	float3 col = base_color;
