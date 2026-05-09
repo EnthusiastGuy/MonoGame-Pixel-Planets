@@ -35,6 +35,28 @@ struct VertexShaderInput
 	float2 TextureCoordinates: TEXCOORD0;
 };
 
+// Original GLSL Hash2 — simple sin-based, time-independent
+float2 Hash2Star(float2 p) {
+	float r = 523.0 * sin(dot(p, float2(53.3158, 43.6143)));
+	return float2(frac(15.32354 * r), frac(17.25865 * r));
+}
+
+// Tileable cell noise matching Godot's Star.gdshader (Dave_Hoskins)
+float CellsStar(float2 p, float numCells) {
+	p *= numCells;
+	float d = 1.0e10;
+	for (int xo = -1; xo <= 1; xo++)
+	{
+		for (int yo = -1; yo <= 1; yo++)
+		{
+			float2 tp = floor(p) + float2((float)xo, (float)yo);
+			tp = p - tp - Hash2Star(glslmod(tp, numCells / TILES));
+			d = min(d, dot(tp, tp));
+		}
+	}
+	return sqrt(d);
+}
+
 float3 pick_star_body_color(int idx) {
 	if (idx == 0) return star_colors0;
 	if (idx == 1) return star_colors1;
@@ -52,8 +74,8 @@ float4 computeStarBody(float2 inputUV) {
 	float2 uv = rotate(pixelized, rotation);
 	uv = spherify(uv);
 
-	float n = cells(size, float2(1.0, 1.0), seed, TILES, time * time_speed, uv - float2(time * time_speed * 2.0, 0.0), 10.0);
-	n *= cells(size, float2(1.0, 1.0), seed, TILES, time * time_speed, uv - float2(time * time_speed * 1.0, 0.0), 20.0);
+	float n = CellsStar(uv - float2(time * time_speed * 2.0, 0.0), 10.0);
+	n *= CellsStar(uv - float2(time * time_speed * 1.0, 0.0), 20.0);
 
 	n *= 2.0;
 	n = clamp(n, 0.0, 1.0);

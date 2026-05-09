@@ -104,6 +104,9 @@ float4 computeStarFlares(float2 inputUV) {
 	float angle = atan2(uv.x - 0.5, uv.y - 0.5) * 0.4;
 	float d = distance(pixelized, float2(0.5, 0.5));
 
+	// Match Godot's relative_scale = 2.0 (flares drawn on 2x canvas)
+	d *= 0.5;
+
 	float2 circleUV = float2(d, angle);
 
 	float n = flare_fbm(circleUV * size - time * time_speed, size, seed, OCTAVES);

@@ -106,6 +106,9 @@ float4 computeStarBlobs(float2 inputUV) {
 	float angle = atan2(uv.x - 0.5, uv.y - 0.5);
 	float d = distance(pixelized, float2(0.5, 0.5));
 
+	// Match Godot's relative_scale = 2.0 (blobs drawn on 2x canvas)
+	d *= 0.5;
+
 	float c = 0.0;
 	for (int i = 0; i < 15; i++) {
 		float r = star_rand(float2((float)i, (float)i), size, seed);

@@ -112,7 +112,7 @@ namespace ShadersTest.Export
         private static void ExportGifToPath(string path, int frameCount, int delayHundredths)
         {
             float savedExportScale = State.ExportAnimationTimeScale;
-            int frames = State.AdjustGifFrameCountForPlanetTimeSpeed(frameCount);
+            int frames = frameCount;
             State.ExportGifGodotTimeMapping = true;
 
             int w = Config.PLANET_RECT_SIZE;
@@ -174,7 +174,7 @@ namespace ShadersTest.Export
             if (total <= 0)
                 return;
 
-            State.ExportAnimationTimeScale = State.ComputeSpriteSheetExportAnimationTimeScale(total);
+            State.ExportGifGodotTimeMapping = true;
 
             try
             {
@@ -190,7 +190,8 @@ namespace ShadersTest.Export
 
                 for (int idx = 0; idx < total; idx++)
                 {
-                    State.ExportAnimationPhase01 = total <= 1 ? 0f : idx / (float)(total - 1);
+                    // Match Godot: sample t in [0, 1) so animation loops seamlessly
+                    State.ExportAnimationPhase01 = total <= 1 ? 0f : idx / (float)total;
 
                     Shaders.Update();
 
@@ -219,6 +220,7 @@ namespace ShadersTest.Export
             }
             finally
             {
+                State.ExportGifGodotTimeMapping = false;
                 State.ExportAnimationTimeScale = savedExportScale;
             }
         }
