@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using ShadersTest;
+using ShadersTest.Export;
 using System;
 
 namespace UserInterface
@@ -39,17 +40,17 @@ namespace UserInterface
             if (MouseStates.MouseLeftClickReleased())
             {
                 if (SheetBtnRect.Contains(mx, my))
-                    Export.Exporter.SaveSpriteSheetWithDialog(sheetColumns, sheetRows, sheetMargin);
+                    Exporter.SaveSpriteSheetWithDialog(sheetColumns, sheetRows, sheetMargin);
                 else if (GifBtnRect.Contains(mx, my))
                 {
                     int delay = Math.Max(2, (int)Math.Round((double)BaseDurationHundredths / gifFrames));
-                    Export.Exporter.SaveGifWithDialog(gifFrames, delay);
+                    Exporter.SaveGifWithDialog(gifFrames, delay);
                 }
                 else if (CancelBtnRect.Contains(mx, my))
                     State.ExportViewOpen = false;
             }
 
-            if (Keyboard.KeyIsReleased(Keys.Escape))
+            if (ShadersTest.Keyboard.KeyIsReleased(Keys.Escape))
                 State.ExportViewOpen = false;
         }
 

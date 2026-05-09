@@ -134,7 +134,7 @@ namespace ShadersTest.Export
 
                     Rgba32[] pixels = ColorsToRgba(buffer);
 
-                    using (var frameImage = Image.LoadPixelData(pixels, w, h))
+                    using (var frameImage = Image.LoadPixelData<Rgba32>(pixels, w, h))
                     {
                         if (gif == null)
                         {
@@ -214,7 +214,7 @@ namespace ShadersTest.Export
                     }
                 }
 
-                using var img = Image.LoadPixelData(sheet, sheetW, sheetH);
+                using var img = Image.LoadPixelData<Rgba32>(sheet, sheetW, sheetH);
                 using (var fs = File.Create(path))
                     img.SaveAsPng(fs);
             }
