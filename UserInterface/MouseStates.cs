@@ -30,6 +30,12 @@ namespace ShadersTest
                 previousMouseState.MiddleButton == ButtonState.Released;
         }
 
+        public static bool MouseLeftClickReleased()
+        {
+            return currentMouseState.LeftButton == ButtonState.Released &&
+                previousMouseState.LeftButton == ButtonState.Pressed;
+        }
+
         public static int GetMouseWheelDelta()
         {
             return currentMouseState.ScrollWheelValue - previousMouseState.ScrollWheelValue;

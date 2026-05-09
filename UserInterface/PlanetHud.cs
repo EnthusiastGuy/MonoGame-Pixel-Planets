@@ -15,6 +15,13 @@ namespace UserInterface
             Renderer.StartTextBatch();
 
             Renderer.DrawTitle(State.GetCurrentCelestialName(), 10, 10);
+
+            if (State.ExportViewOpen)
+            {
+                ExportView.Draw();
+                Renderer.EndBatch();
+                return;
+            }
             Renderer.DrawInfo(State.GetCurrentCelestialInfo(), 10, 34);
 
             Renderer.DrawInfo("Press Up/Down to change: " + Math.Floor(State.Pixels) + " pixels", 10, 52);
