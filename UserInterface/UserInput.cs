@@ -90,27 +90,15 @@ namespace ShadersTest
                 Export.Exporter.SavePlanetPngWithDialog();
             }
 
-            if (Keyboard.KeyIsReleased(Keys.OemOpenBrackets))
+            if (Keyboard.KeyIsReleased(Keys.F3))
             {
                 State.PaletteIndex = (State.PaletteIndex - 1 + Persistence.Palettes.All.Count) % Persistence.Palettes.All.Count;
                 Shaders.ApplyCurrentPalette();
             }
 
-            if (Keyboard.KeyIsReleased(Keys.OemCloseBrackets))
+            if (Keyboard.KeyIsReleased(Keys.F4))
             {
                 State.PaletteIndex = (State.PaletteIndex + 1) % Persistence.Palettes.All.Count;
-                Shaders.ApplyCurrentPalette();
-            }
-
-            if (Keyboard.KeyIsReleased(Keys.OemOpenBrackets))
-            {
-                State.PaletteIndex = (State.PaletteIndex - 1 + ShadersTest.Persistence.Palettes.All.Count) % ShadersTest.Persistence.Palettes.All.Count;
-                Shaders.ApplyCurrentPalette();
-            }
-
-            if (Keyboard.KeyIsReleased(Keys.OemCloseBrackets))
-            {
-                State.PaletteIndex = (State.PaletteIndex + 1) % ShadersTest.Persistence.Palettes.All.Count;
                 Shaders.ApplyCurrentPalette();
             }
 
