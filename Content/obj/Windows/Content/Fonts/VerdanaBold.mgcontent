@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>D:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/Fonts/VerdanaBold.spritefont</SourceFile>
+  <SourceFile>d:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/Fonts/VerdanaBold.spritefont</SourceFile>
   <SourceTime>2026-05-09T16:18:36.3260814+03:00</SourceTime>
-  <DestFile>D:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/bin/Windows/Content/Fonts/VerdanaBold.xnb</DestFile>
-  <DestTime>2026-05-09T17:40:38.6219508+03:00</DestTime>
+  <DestFile>d:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/bin/Windows/Content/Fonts/VerdanaBold.xnb</DestFile>
+  <DestTime>2026-05-09T20:57:26.5726838+03:00</DestTime>
   <Importer>FontDescriptionImporter</Importer>
   <ImporterTime>2020-08-10T19:17:54+03:00</ImporterTime>
   <Processor>FontDescriptionProcessor</Processor>

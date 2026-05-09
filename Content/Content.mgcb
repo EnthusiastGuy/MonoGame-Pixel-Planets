@@ -1,7 +1,7 @@
 
 #----------------------------- Global Properties ----------------------------#
 
-/outputDir:bin/$(Platform)
+/outputDir:bin/$(Platform)/Content
 /intermediateDir:obj/$(Platform)
 /platform:Windows
 /config:

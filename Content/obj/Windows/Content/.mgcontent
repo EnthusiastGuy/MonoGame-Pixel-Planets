@@ -4,23 +4,23 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>D:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/Fonts/Verdana.spritefont</File>
-    <File>D:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/Fonts/VerdanaBold.spritefont</File>
-    <File>D:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/Asteroid.fx</File>
-    <File>D:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/GasPlanet.fx</File>
-    <File>D:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/GasPlanetLayers.fx</File>
-    <File>D:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/IceWorld.fx</File>
-    <File>D:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/LandMasses.fx</File>
-    <File>D:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/LandRivers.fx</File>
-    <File>D:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/LavaWorld.fx</File>
-    <File>D:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/NoAtmosphere.fx</File>
-    <File>D:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/planet_utils.fx</File>
-    <File>D:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/Star.fx</File>
-    <File>D:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/TerranDry.fx</File>
-    <File>D:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/Galaxy.fx</File>
-    <File>D:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/BlackHole.fx</File>
-    <File>D:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/StarBlobs.fx</File>
-    <File>D:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/StarFlares.fx</File>
+    <File>d:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/Fonts/Verdana.spritefont</File>
+    <File>d:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/Fonts/VerdanaBold.spritefont</File>
+    <File>d:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/Asteroid.fx</File>
+    <File>d:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/GasPlanet.fx</File>
+    <File>d:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/GasPlanetLayers.fx</File>
+    <File>d:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/IceWorld.fx</File>
+    <File>d:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/LandMasses.fx</File>
+    <File>d:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/LandRivers.fx</File>
+    <File>d:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/LavaWorld.fx</File>
+    <File>d:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/NoAtmosphere.fx</File>
+    <File>d:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/planet_utils.fx</File>
+    <File>d:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/Star.fx</File>
+    <File>d:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/TerranDry.fx</File>
+    <File>d:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/Galaxy.fx</File>
+    <File>d:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/BlackHole.fx</File>
+    <File>d:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/StarBlobs.fx</File>
+    <File>d:/Projects/[Demo] Pixel Planets/MonoGame-Pixel-Planets/Content/ShadersV2/StarFlares.fx</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

@@ -19,12 +19,11 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.1.303" />
+    <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bin\Windows\Content\**\*" CopyToOutputDirectory="PreserveNewest">
-      <Link>Content\%(RecursiveDir)%(Filename)%(Extension)</Link>
-    </Content>
+    <MonoGameContentReference Include="Content\Content.mgcb" />
   </ItemGroup>
 </Project>
