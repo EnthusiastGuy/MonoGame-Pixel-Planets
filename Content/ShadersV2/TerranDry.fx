@@ -25,11 +25,11 @@ float size = 8.0;
 int OCTAVES = 3;
 float seed = 1.175; // expected 0 - 10
 
-static float3 color1 = float3(1.000, 0.537, 0.200);
-static float3 color2 = float3(0.898, 0.266, 0.219);
-static float3 color3 = float3(0.674, 0.184, 0.266);
-static float3 color4 = float3(0.317, 0.196, 0.243);
-static float3 color5 = float3(0.239, 0.156, 0.211);
+float3 color1 = float3(1.000, 0.537, 0.200);
+float3 color2 = float3(0.898, 0.266, 0.219);
+float3 color3 = float3(0.674, 0.184, 0.266);
+float3 color4 = float3(0.317, 0.196, 0.243);
+float3 color5 = float3(0.239, 0.156, 0.211);
 
 struct VertexShaderInput
 {

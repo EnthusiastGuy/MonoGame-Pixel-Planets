@@ -15,9 +15,20 @@ namespace UserInterface
             Renderer.StartTextBatch();
 
             Renderer.DrawTitle(State.GetCurrentCelestialName(), 10, 10);
+
+            if (State.ExportViewOpen)
+            {
+                ExportView.Draw();
+                Renderer.EndBatch();
+                return;
+            }
             Renderer.DrawInfo(State.GetCurrentCelestialInfo(), 10, 34);
 
-            Renderer.DrawInfo("Press Up/Down to change: " + Math.Floor(State.Pixels) + " pixels", 10, 52);
+            // Palette indicator
+            string paletteName = ShadersTest.Persistence.Palettes.All[State.PaletteIndex % ShadersTest.Persistence.Palettes.All.Count].Name;
+            Renderer.DrawSimple("< " + paletteName + " >", 10, 52, Color.MediumOrchid);
+
+            Renderer.DrawInfo("Press Up/Down to change: " + Math.Floor(State.Pixels) + " pixels", 10, 70);
 
             Renderer.DrawSimple(State.HelperLine1, 10, Config.VIEWPORT_HEIGHT - 48, Color.AliceBlue);
             Renderer.DrawSimple(State.HelperLine2, 10, Config.VIEWPORT_HEIGHT - 30, Color.AliceBlue);

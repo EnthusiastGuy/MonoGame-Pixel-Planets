@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using System;
+using UserInterface;
 
 namespace ShadersTest
 {
@@ -17,6 +18,12 @@ namespace ShadersTest
 
         private static void InterpretKeyboardActions()
         {
+            if (State.ExportViewOpen)
+            {
+                ExportView.HandleInput();
+                return;
+            }
+
             if (Keyboard.KeyIsReleased(Keys.Right))
             {
                 State.NextCelestial();
@@ -83,14 +90,21 @@ namespace ShadersTest
                 Export.Exporter.SavePlanetPngWithDialog();
             }
 
-            if (Keyboard.KeyIsReleased(Keys.F2))
-            {
-                Export.Exporter.SaveSpriteSheetWithDialog();
-            }
-
             if (Keyboard.KeyIsReleased(Keys.F3))
             {
-                Export.Exporter.SaveGifWithDialog();
+                State.PaletteIndex = (State.PaletteIndex - 1 + Persistence.Palettes.All.Count) % Persistence.Palettes.All.Count;
+                Shaders.ApplyCurrentPalette();
+            }
+
+            if (Keyboard.KeyIsReleased(Keys.F4))
+            {
+                State.PaletteIndex = (State.PaletteIndex + 1) % Persistence.Palettes.All.Count;
+                Shaders.ApplyCurrentPalette();
+            }
+
+            if (Keyboard.KeyIsReleased(Keys.F2))
+            {
+                State.ExportViewOpen = true;
             }
         }
 
@@ -99,6 +113,9 @@ namespace ShadersTest
             State.MouseX = Mouse.GetState().X;
             State.MouseY = Mouse.GetState().Y;
             State.MouseL = Mouse.GetState().LeftButton == ButtonState.Pressed;
+
+            if (State.ExportViewOpen)
+                return;
 
             State.TimeStoppedByMouse = (Mouse.GetState().RightButton == ButtonState.Pressed);
 

@@ -64,7 +64,10 @@ namespace ShadersTest
         public static int ClickedMouseY = 0;
         public static bool ExitRequested = false;
 
-        public static string HelperLine1 = "LEFT/RIGHT: body  |  P: PNG  |  F2: sprite sheet  |  F3: GIF  |  X: full shot  |  TAB / ~ : rand / defaults";
+        public static bool ExportViewOpen;
+        public static int PaletteIndex = 0;
+
+        public static string HelperLine1 = "LEFT/RIGHT: body  |  P: PNG  |  F2: export  |  F3/F4: palette  |  X: shot  |  TAB/~: rand/defaults";
         public static string HelperLine2 = "[LightHandlingMessage]";
 
         private static PersistentData data = LoadOrInitialize();

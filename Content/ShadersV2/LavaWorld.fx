@@ -10,6 +10,8 @@
 #include "planet_utils.fx"
 
 float time = 0.0;
+float time_craters = 0.0;
+float time_lava = 0.0;
 float pixels = 200;
 float2 light_origin = float2(0.3, 0.3);
 
@@ -20,9 +22,9 @@ float dither_size = 2.0;	// 1 is neutral
 float light_border_1 = 0.4;
 float light_border_2 = 0.6;
 
-static float3 color1 = float3(0.560, 0.301, 0.341);
-static float3 color2 = float3(0.321, 0.200, 0.247);
-static float3 color3 = float3(0.239, 0.160, 0.211);
+float3 color1 = float3(0.560, 0.301, 0.341);
+float3 color2 = float3(0.321, 0.200, 0.247);
+float3 color3 = float3(0.239, 0.160, 0.211);
 
 float size = 10.0;
 int octaves = 3;
@@ -34,8 +36,8 @@ float seed = 1.551; // expected 0 - 10
 float craters_time_speed = 0.09;
 float craters_light_border = 0.4;
 
-static float3 cratersColor1 = float3(0.321, 0.200, 0.247);
-static float3 cratersColor2 = float3(0.239, 0.160, 0.211);
+float3 cratersColor1 = float3(0.321, 0.200, 0.247);
+float3 cratersColor2 = float3(0.239, 0.160, 0.211);
 
 float craters_size = 3.5;
 float craters_seed = 1.561; // expected 0 - 10
@@ -47,9 +49,9 @@ float lava_light_border_2 = 0.036;
 
 float lava_river_cutoff = 0.579;
 
-static float3 lava_color1 = float3(1.000, 0.537, 0.200);
-static float3 lava_color2 = float3(0.901, 0.270, 0.223);
-static float3 lava_color3 = float3(0.678, 0.184, 0.270);
+float3 lava_color1 = float3(1.000, 0.537, 0.200);
+float3 lava_color2 = float3(0.901, 0.270, 0.223);
+float3 lava_color3 = float3(0.678, 0.184, 0.270);
 
 float lava_size = 10.0;
 int lava_octaves = 4;
@@ -119,8 +121,8 @@ float4 computeCraters(float2 inputUV) {
 	// map to sphere
 	uv = spherify(uv);
 
-	float c1 = crater(craters_size, float2(1.0, 1.0), craters_seed, time, craters_time_speed, uv);
-	float c2 = crater(craters_size, float2(1.0, 1.0), craters_seed, time, craters_time_speed, uv + (light_origin - 0.5) * 0.03);
+	float c1 = crater(craters_size, float2(1.0, 1.0), craters_seed, time_craters, craters_time_speed, uv);
+	float c2 = crater(craters_size, float2(1.0, 1.0), craters_seed, time_craters, craters_time_speed, uv + (light_origin - 0.5) * 0.03);
 
 	float3 col = cratersColor1;
 	float a = step(0.5, c1);
@@ -150,7 +152,7 @@ float4 computeLava(float2 inputUV) {
 	uv = spherify(uv);
 
 	// some scrolling noise for landmasses
-	float fbm1 = fbm(lava_size, float2(2.0, 1.0), lava_seed, lava_octaves, uv * lava_size + float2(time * lava_time_speed, 0.0));
+	float fbm1 = fbm(lava_size, float2(2.0, 1.0), lava_seed, lava_octaves, uv * lava_size + float2(time_lava * lava_time_speed, 0.0));
 	float river_fbm = fbm(lava_size, float2(2.0, 1.0), lava_seed, lava_octaves, uv + fbm1 * 2.5);
 
 	// increase contrast on d_light

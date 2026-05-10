@@ -22,6 +22,12 @@ namespace UserInterface
 
         public static void UpdateLayout()
         {
+            if (State.ExportViewOpen)
+            {
+                lockedProperty = null;
+                return;
+            }
+
             largestDisplayNameWidth = 0;
             drawableProps = State.GetUIParamsList();
 

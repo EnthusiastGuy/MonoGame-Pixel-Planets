@@ -16,13 +16,13 @@ float time_speed = 0.2;
 float dither_size = 2.0;
 float should_dither = 1.0;
 
-static float3 colors0 = float3(1.0, 1.0, 0.921569);
-static float3 colors1 = float3(1.0, 0.913725, 0.552941);
-static float3 colors2 = float3(0.709804, 0.878431, 0.4);
-static float3 colors3 = float3(0.396078, 0.647059, 0.4);
-static float3 colors4 = float3(0.223529, 0.364706, 0.392157);
-static float3 colors5 = float3(0.196078, 0.223529, 0.301961);
-static float3 colors6 = float3(0.196078, 0.160784, 0.278431);
+float3 colors0 = float3(1.0, 1.0, 0.921569);
+float3 colors1 = float3(1.0, 0.913725, 0.552941);
+float3 colors2 = float3(0.709804, 0.878431, 0.4);
+float3 colors3 = float3(0.396078, 0.647059, 0.4);
+float3 colors4 = float3(0.223529, 0.364706, 0.392157);
+float3 colors5 = float3(0.196078, 0.223529, 0.301961);
+float3 colors6 = float3(0.196078, 0.160784, 0.278431);
 
 float size = 50.0;
 int OCTAVES = 6;

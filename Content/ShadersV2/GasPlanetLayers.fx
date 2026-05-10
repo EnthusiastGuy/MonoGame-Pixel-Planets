@@ -10,6 +10,7 @@
 #include "planet_utils.fx"
 
 float time = 0.0;
+float time_ring = 0.0;
 float pixels = 200;
 float2 light_origin = float2(-0.1, 0.3);
 float fullScale = 1.0;
@@ -173,7 +174,7 @@ float4 computeRing(float2 inputUV) {
 	}
 
 	// rotate material in the ring
-	uv_center = rotate(uv_center + float2(0, 0.5), time * ring_time_speed);
+	uv_center = rotate(uv_center + float2(0, 0.5), time_ring * ring_time_speed);
 	// some noise
 	ring *= fbm(ring_size, float2(2.0, 1.0), ring_seed, ring_octaves, uv_center * ring_size);
 

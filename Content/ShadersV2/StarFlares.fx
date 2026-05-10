@@ -12,8 +12,8 @@
 float time = 0.0;
 float pixels = 200.0;
 
-static float3 flare_col0 = float3(0.466667, 0.839216, 0.756863);
-static float3 flare_col1 = float3(1.0, 1.0, 0.894118);
+float3 flare_col0 = float3(0.466667, 0.839216, 0.756863);
+float3 flare_col1 = float3(1.0, 1.0, 0.894118);
 
 float time_speed = 0.05;
 float rotation = 0.0;
@@ -103,6 +103,9 @@ float4 computeStarFlares(float2 inputUV) {
 
 	float angle = atan2(uv.x - 0.5, uv.y - 0.5) * 0.4;
 	float d = distance(pixelized, float2(0.5, 0.5));
+
+	// Match Godot's relative_scale = 2.0 (flares drawn on 2x canvas)
+	d *= 0.5;
 
 	float2 circleUV = float2(d, angle);
 

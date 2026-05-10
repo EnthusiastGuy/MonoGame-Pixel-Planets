@@ -10,6 +10,7 @@
 #include "planet_utils.fx"
 
 float time = 0.0;
+float time_craters = 0.0;
 float pixels = 200;
 float2 light_origin = float2(0.3, 0.3);
 float rotation = 0.0;
@@ -21,9 +22,9 @@ float dither_size = 2.0;	// 1 is neutral
 float light_border_1 = 0.615;
 float light_border_2 = 0.729;
 
-static float3 color1 = float3(0.639, 0.654, 0.760);
-static float3 color2 = float3(0.298, 0.407, 0.521);
-static float3 color3 = float3(0.227, 0.247, 0.368);
+float3 color1 = float3(0.639, 0.654, 0.760);
+float3 color2 = float3(0.298, 0.407, 0.521);
+float3 color3 = float3(0.227, 0.247, 0.368);
 
 float size = 8.0;
 int OCTAVES = 4;
@@ -33,8 +34,8 @@ float seed = 1.012; // expected 0 - 10
 
 float light_border_crater = 0.465;
 
-static float3 craterColor1 = float3(0.298, 0.407, 0.521);
-static float3 craterColor2 = float3(0.227, 0.247, 0.368);
+float3 craterColor1 = float3(0.298, 0.407, 0.521);
+float3 craterColor2 = float3(0.227, 0.247, 0.368);
 float sizeCraters = 5.0;
 float seedCraters = 4.517; // expected 0 - 10
 
@@ -99,8 +100,8 @@ float4 computeCraters(float2 inputUV) {
 	// map to sphere
 	uv = spherify(uv);
 
-	float c1 = crater(sizeCraters, float2(1.0, 1.0), seedCraters, time, time_speed, uv);
-	float c2 = crater(sizeCraters, float2(1.0, 1.0), seedCraters, time, time_speed, uv + (light_origin - 0.5) * 0.03);
+	float c1 = crater(sizeCraters, float2(1.0, 1.0), seedCraters, time_craters, time_speed, uv);
+	float c2 = crater(sizeCraters, float2(1.0, 1.0), seedCraters, time_craters, time_speed, uv + (light_origin - 0.5) * 0.03);
 
 	float3 col = craterColor1;
 	float a = step(0.5, c1);

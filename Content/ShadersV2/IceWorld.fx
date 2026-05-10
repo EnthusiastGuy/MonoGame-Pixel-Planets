@@ -10,6 +10,7 @@
 #include "planet_utils.fx"
 
 float time = 0.0;
+float time_clouds = 0.0;
 float pixels = 200;
 float2 light_origin = float2(0.3, 0.3);
 
@@ -20,9 +21,9 @@ float dither_size = 2.0;	// 1 is neutral
 float light_border_1 = 0.48;
 float light_border_2 = 0.632;
 
-static float3 color1 = float3(0.98, 1.00, 1.00);
-static float3 color2 = float3(0.78, 0.83, 0.88);
-static float3 color3 = float3(0.57, 0.56, 0.72);
+float3 color1 = float3(0.98, 1.00, 1.00);
+float3 color2 = float3(0.78, 0.83, 0.88);
+float3 color3 = float3(0.57, 0.56, 0.72);
 
 float size = 8.0;
 int OCTAVES = 2;
@@ -34,9 +35,9 @@ float lake_cutoff = 0.55;
 float light_border_lake_1 = 0.024;
 float light_border_lake_2 = 0.047;
 
-static float3 lakeColor1 = float3(0.309, 0.643, 0.721);
-static float3 lakeColor2 = float3(0.298, 0.407, 0.521);
-static float3 lakeColor3 = float3(0.227, 0.247, 0.368);
+float3 lakeColor1 = float3(0.309, 0.643, 0.721);
+float3 lakeColor2 = float3(0.298, 0.407, 0.521);
+float3 lakeColor3 = float3(0.227, 0.247, 0.368);
 
 float seedLakes = 4.14; // expected 0 - 10
 float sizeLakes = 10.0;
@@ -53,10 +54,10 @@ float seedClouds = 1.14; // expected 0 - 10
 float sizeClouds = 4.0;
 float time_speed_clouds = 0.1;
 
-static float3 base_color = float3(0.882, 0.949, 1.0);
-static float3 outline_color = float3(0.752, 0.890, 1.0);
-static float3 shadow_base_color = float3(0.368, 0.439, 0.647);
-static float3 shadow_outline_color = float3(0.250, 0.286, 0.450);
+float3 base_color = float3(0.882, 0.949, 1.0);
+float3 outline_color = float3(0.752, 0.890, 1.0);
+float3 shadow_base_color = float3(0.368, 0.439, 0.647);
+float3 shadow_outline_color = float3(0.250, 0.286, 0.450);
 
 
 struct VertexShaderInput
@@ -156,7 +157,7 @@ float4 computeClouds(float2 inputUV) {
 	// slightly make uv go down on the right, and up in the left
 	uv.y += smoothstep(0.0, cloud_curve, abs(uv.x - 0.4));
 
-	float c = cloud_alpha(sizeClouds, float2(1.0, 1.0), seedClouds, time, time_speed_clouds, OCTAVES_CLOUDS, uv * float2(1.0, stretch));
+	float c = cloud_alpha(sizeClouds, float2(1.0, 1.0), seedClouds, time_clouds, time_speed_clouds, OCTAVES_CLOUDS, uv * float2(1.0, stretch));
 
 	// assign some colors based on cloud depth & distance from light
 	float3 col = base_color;
